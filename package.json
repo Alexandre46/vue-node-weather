@@ -1,0 +1,28 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "VueJS with APIWeather test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexandre46/vue-basic-weatherApp.git"
+  },
+  "keywords": [
+    "vue",
+    "weather",
+    "api"
+  ],
+  "author": "Alexandre Abreu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexandre46/vue-basic-weatherApp/issues"
+  },
+  "homepage": "https://github.com/Alexandre46/vue-basic-weatherApp#readme",
+  "dependencies": {
+    "request": "^2.88.0",
+    "yargs": "^12.0.2"
+  }
+}
