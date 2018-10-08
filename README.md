@@ -12,7 +12,7 @@
 * throttle to avoid btn to submit
 * getLocation to auto display forecast to user location.
 * images pending on rain/sun etc..
-
+* re-design landing page
 
 #### Feel free to contact : Alexandreabreu46@gmail.com for any sugestion about this.
 
