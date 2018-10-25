@@ -54,8 +54,6 @@ var app = new Vue({
             this.temps = response.data.list.map(list => {
               return list.main.temp;
             });
-
-            console.log(response.data.list[0]);
             
           this.temperature = response.data.list[0].main.temp;
           this.humidity = response.data.list[0].main.humidity + '%';

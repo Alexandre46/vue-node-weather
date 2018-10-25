@@ -1,15 +1,17 @@
 ## VueJS + AXIOS + openWeatherAPI - Test Project
 
+*Under construction*
+
 *Changelog*
 * added openWeatherAPI
 * requests with AXIOS
 * chartJs for display graph with last forecast
 * added humidity/pressure/temp to check
+* added debounce to submit auto user input
   
-*Under construction*
+
 
 ### ToDo
-* throttle to avoid btn to submit
 * getLocation to auto display forecast to user location.
 * images pending on rain/sun etc..
 * re-design landing page
