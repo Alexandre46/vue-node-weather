@@ -2,7 +2,7 @@ var app = new Vue({
     el: "#app",
     data: {
       chart: null,
-      city: "",
+      city: "Funchal",
       dates: [],
       temperature: "",
       pressure: '',
@@ -13,13 +13,31 @@ var app = new Vue({
       loading: false,
       errored: false
     },
+    watch: {
+        // whenever question changes, this function will run
+        city: function (newQuestion, oldQuestion) {
+            this.debouncedGetAnswer()
+        }
+    },
+    created: function () {
+        // _.debounce is a function provided by lodash to limit how
+        // often a particularly expensive operation can be run.
+        // In this case, we want to limit how often we access
+        // yesno.wtf/api, waiting until the user has completely
+        // finished typing before making the ajax request. To learn
+        // more about the _.debounce function (and its cousin
+        // _.throttle), visit: https://lodash.com/docs#debounce
+        this.debouncedGetAnswer = _.debounce(this.getData, 500)
+    },
     methods: {
+
       getData: function() {
         this.loading = true;
   
         if (this.chart != null) {
           this.chart.destroy();
         }
+  
         axios
           .get("https://api.openweathermap.org/data/2.5/forecast", {
             params: {
@@ -36,8 +54,9 @@ var app = new Vue({
             this.temps = response.data.list.map(list => {
               return list.main.temp;
             });
+
             console.log(response.data.list[0]);
-          
+            
           this.temperature = response.data.list[0].main.temp;
           this.humidity = response.data.list[0].main.humidity + '%';
           this.pressure = response.data.list[0].main.pressure;
@@ -122,3 +141,5 @@ var app = new Vue({
       }
     }
   });
+
+

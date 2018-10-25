@@ -1,10 +1,13 @@
 const argv = require('yargs').argv;
-
 let request = require('request');
-
 let apiKey = '88d2151398a5960afd2b42a1bb914c39';
 let city = argv.c || 'Funchal';
 let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+
+const _ = require("lodash")
+
+const ver = _.VERSION
+console.log(ver);
 
 request(url, function (err, response, body) {
     if(err){
