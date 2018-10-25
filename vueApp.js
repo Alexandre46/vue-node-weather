@@ -1,8 +1,11 @@
+const API = "https://api.openweathermap.org/data/2.5/forecast";
+const KEY = "88d2151398a5960afd2b42a1bb914c39";
+
 var app = new Vue({
     el: "#app",
     data: {
       chart: null,
-      city: "Funchal",
+      city: "...",
       dates: [],
       temperature: "",
       pressure: '',
@@ -27,9 +30,20 @@ var app = new Vue({
         // finished typing before making the ajax request. To learn
         // more about the _.debounce function (and its cousin
         // _.throttle), visit: https://lodash.com/docs#debounce
+        this.getCity();
         this.debouncedGetAnswer = _.debounce(this.getData, 500)
     },
     methods: {
+
+        getCity(){
+           axios.get('http://ip-api.com/json',{
+
+           }).then( response =>{
+               console.log(response.data.city);
+               this.city = response.data.city;
+               return this.city;
+           })
+        },
 
       getData: function() {
         this.loading = true;
@@ -37,13 +51,14 @@ var app = new Vue({
         if (this.chart != null) {
           this.chart.destroy();
         }
-  
+
+
         axios
-          .get("https://api.openweathermap.org/data/2.5/forecast", {
+          .get(API, {
             params: {
               q: this.city,
               units: "metric",
-              appid: "88d2151398a5960afd2b42a1bb914c39"
+              appid: KEY
             }
           })
           .then(response => {
@@ -54,7 +69,7 @@ var app = new Vue({
             this.temps = response.data.list.map(list => {
               return list.main.temp;
             });
-            
+
           this.temperature = response.data.list[0].main.temp;
           this.humidity = response.data.list[0].main.humidity + '%';
           this.pressure = response.data.list[0].main.pressure;

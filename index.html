@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Vue.js Weather App</title>
+    <title>Vue Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:extra-light|Vast+Shadow" rel="stylesheet">
@@ -16,14 +16,18 @@
           <form v-on:submit.prevent="getData">
             <div class="row">
               <div class="col-md-6 offset-md-3">
-                <h5>Introduce your City:</h5>
+                <h5>Introduce your City (or Browser will auto-detect *):</h5>
                 <div class="input-group">
                   <input type="text" class="autocomplete form-control" v-model="city">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Submit</button>
                   </div>
-                  <div class="status-ajax"></div>
                 </div>
+                <p>
+                  <i>
+                    Attention: 93% browser geolocation detection compatible, so be patience if you're not working.
+                  </i>
+                </p>
               </div>
             </div>
           </form>
