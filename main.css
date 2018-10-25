@@ -30,3 +30,17 @@
     top: 2px;
     padding-left: 8px;
   }
+
+input {
+  padding:8px 20px;
+  border-radius: 2px;
+  border:0;
+  font-size:20px;
+}
+.status-key,
+.status-ajax {
+  margin:10px 0;
+}
+.status-ajax {
+  color:#99FF7E;
+}

@@ -16,13 +16,13 @@
           <form v-on:submit.prevent="getData">
             <div class="row">
               <div class="col-md-6 offset-md-3">
-                <h4>Introduce your City:</h4>
-                <h5>Or just type your city</h5>
+                <h5>Introduce your City:</h5>
                 <div class="input-group">
-                  <input type="text" class="form-control" v-model="city">
+                  <input type="text" class="autocomplete form-control" v-model="city">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Submit</button>
                   </div>
+                  <div class="status-ajax"></div>
                 </div>
               </div>
             </div>
@@ -52,6 +52,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <!--lodash cdn-->
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
   <script src="vueApp.js"></script>
   <script src="index.js"></script>
 </html>
