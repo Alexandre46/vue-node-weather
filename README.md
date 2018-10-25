@@ -8,15 +8,13 @@
 * chartJs for display graph with last forecast
 * added humidity/pressure/temp to check
 * added debounce to submit auto user input
+* Geolocation api: ipapi to detect city from current location
   
 
 
-### ToDo
-* getLocation to auto display forecast to user location.
+## ToDo
 * images pending on rain/sun etc..
 * re-design landing page
-
-#### Feel free to contact : Alexandreabreu46@gmail.com for any sugestion about this.
 
 ##### Improvements on near future.
 
