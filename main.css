@@ -1,3 +1,4 @@
+
 #weather {
     padding: 15px;
     vertical-align: middle;
@@ -43,4 +44,14 @@ input {
 }
 .status-ajax {
   color:#99FF7E;
+}
+
+figure {
+  margin: 2em auto;
+  width: 300px;
+  height: 100px;
+}
+
+.app{
+  overflow-x: hidden;
 }

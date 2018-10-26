@@ -16,9 +16,10 @@
           <form v-on:submit.prevent="getData">
             <div class="row">
               <div class="col-md-6 offset-md-3">
-                <h5>Introduce your City (or Browser will auto-detect *):</h5>
+                <h3>Insert your city:</h3>
+                <h5>(or browser will auto-detect *)</h5>
                 <div class="input-group">
-                  <input type="text" class="autocomplete form-control" v-model="city">
+                  <input type="text" class="autocomplete form-control" placeholder="City,Country code (eg: Dublin,IE)" v-model="city">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="submit">Submit</button>
                   </div>
@@ -36,10 +37,42 @@
           <div class="alert alert-info" v-show="loading">
             Loading...
           </div>
-          <div>
-             <h4>Current weather in {{city}} is      
-                {{temperature}} º C </h4> 
-          </div>         
+          <div class="container row">
+            <div class="col-xs-12">
+              <h4>{{city}} / {{country}}</h4>
+            </div>
+          </div>
+
+          <div class="container row">
+            <div class="col-xs-4 col-sm-6">
+              <figure class="icons">
+                <canvas id="icon1" width="64" height="64"></canvas>
+              </figure>
+            </div>
+            <div class="col-sm-6">
+              <div class="col-xs-4 col-sm-6 container row">
+                <h3>{{temperature}} </h3>ºC
+              </div>
+              <div class="col-xs-4">
+                <p>Máx: {{maxTemperature}} ºC</p>
+                <p>Min: {{minTemperature}} ºC</p>
+              </div>
+            </div>
+          </div>
+
+          <br>
+          <div class="container row">
+            <div class="col-xs-12 col-sm-6">
+              <h4>Information:</h4> {{description}}
+            </div>
+            <br>
+            <div class="col-xs-12 col-sm-6">
+              <h4>Additional info: </h4> {{population}} (population)
+            </div>
+          </div>
+
+          <br>
+          <h4> Graphs</h4>
           <div>
                 <img class="icon" src="images/humidity.svg"> {{humidity}}
                 <img class="icon" src="images/pressure.svg"> {{pressure}}
@@ -60,4 +93,6 @@
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
   <script src="vueApp.js"></script>
   <script src="index.js"></script>
+  <!-- animated icons for weather-->
+  <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
 </html>

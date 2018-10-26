@@ -5,16 +5,21 @@ var app = new Vue({
     el: "#app",
     data: {
       chart: null,
-      city: "...",
+      city: "City,Country code",
+      country: "",
       dates: [],
       temperature: "",
+      maxTemperature : "",
+      minTemperature: "",
       pressure: '',
       humidity: '',
       wind: '',
       overcast: '', 
       temps: [],
       loading: false,
-      errored: false
+      errored: false,
+      description:'',
+      population: ''
     },
     watch: {
         // whenever question changes, this function will run
@@ -35,12 +40,16 @@ var app = new Vue({
     },
     methods: {
 
+
         getCity(){
            axios.get('https://ipapi.co/json/',{
 
            }).then( response =>{
                console.log(response.data.city);
                this.city = response.data.city;
+               this.country = response.data.country;
+               console.log('ipapi country-> '+this.country);
+
                return this.city;
            })
         },
@@ -52,11 +61,28 @@ var app = new Vue({
           this.chart.destroy();
         }
 
+        //fetch url
+        console.log('Fetching data from' +API);
+
+        //city introduced
+        console.log('city: '+this.city);
+
+          //city without country if exists comma
+          //separated city by country
+          if(this.city.indexOf(',') > -1){
+              var onlyCity = this.city.split(',');
+              this.city = onlyCity[0];
+
+              //country
+              this.country = onlyCity[1];
+          }
+
+
 
         axios
           .get(API, {
             params: {
-              q: this.city,
+              q: this.city+','+this.country,
               units: "metric",
               appid: KEY
             }
@@ -70,13 +96,55 @@ var app = new Vue({
               return list.main.temp;
             });
 
-          this.temperature = response.data.list[0].main.temp;
-          this.humidity = response.data.list[0].main.humidity + '%';
-          this.pressure = response.data.list[0].main.pressure;
-          this.wind = response.data.list[0].wind.speed + 'm/s';
-          this.overcast = response.data.list[0].weather[0].description;
-    
-        
+          //debug
+          console.log(response.data);
+
+          //country
+          this.country          = response.data.city.country;
+
+          //weather info
+          this.temperature      = Math.round(response.data.list[0].main.temp);
+          this.maxTemperature   = response.data.list[0].main.temp_max;
+          this.minTemperature   = response.data.list[0].main.temp_min;
+          this.humidity         = response.data.list[0].main.humidity + '%';
+          this.pressure         = response.data.list[0].main.pressure;
+          this.wind             = response.data.list[0].wind.speed + 'm/s';
+          this.overcast         = response.data.list[0].weather[0].description;
+
+          //description
+          this.description      = response.data.list[0].weather[0].description;
+
+          //population
+          this.population       = response.data.city.population;
+
+          //icons
+          var icons = new Skycons({"color": "black"});
+
+          const currentWeather = response.data.list[0].weather[0].main;
+          const currentWeatherDesc =   response.data.list[0].weather[0].description;
+
+          console.log('current Weather: '+currentWeather);
+          console.log('current Weather Description: '+currentWeatherDesc);
+
+          if(currentWeather === 'Rain'){
+              icons.set("icon1", Skycons.RAIN);
+          }
+          if(currentWeather === 'Clouds'){
+              icons.set("icon1", Skycons.CLOUDY);
+          }
+          if(currentWeather === 'Snow'){
+              icons.set("icon1", Skycons.SNOW);
+          }
+          if(currentWeather === 'Windy'){
+              icons.set("icon1", Skycons.WIND);
+          }
+          if(currentWeather === 'Clear' || currentWeatherDesc === '%Clear%sky%'){
+              icons.set("icon1", Skycons.CLEAR_DAY);
+          }
+
+
+          icons.play();
+
             var ctx = document.getElementById("myChart");
             this.chart = new Chart(ctx, {
               type: "line",
