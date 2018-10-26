@@ -36,7 +36,7 @@ var app = new Vue({
     methods: {
 
         getCity(){
-           axios.get('http://ip-api.com/json',{
+           axios.get('https://ipapi.co/json/',{
 
            }).then( response =>{
                console.log(response.data.city);
