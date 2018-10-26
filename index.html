@@ -39,7 +39,26 @@
           <div>
              <h4>Current weather in {{city}} is      
                 {{temperature}} º C </h4> 
-          </div>         
+          </div>
+          <div class="col-xs-12">
+            <figure class="icons">
+              <canvas id="clear-day" width="64" height="64"></canvas>
+              <canvas id="clear-night" width="64" height="64"></canvas>
+              <canvas id="partly-cloudy-day" width="64" height="64"></canvas>
+              <canvas id="partly-cloudy-night" width="64" height="64"></canvas>
+              <canvas id="cloudy" width="64" height="64"></canvas>
+              <canvas id="rain" width="64" height="64"></canvas>
+              <canvas id="sleet" width="64" height="64"></canvas>
+              <canvas id="snow" width="64" height="64"></canvas>
+              <canvas id="wind" width="64" height="64"></canvas>
+              <canvas id="fog" width="64" height="64"></canvas>
+            </figure>
+          </div>
+          <div class="col-xs-12">
+            <h4>Information:</h4> {{description}}
+          </div>
+          <br>
+          <h4> Graphs</h4>
           <div>
                 <img class="icon" src="images/humidity.svg"> {{humidity}}
                 <img class="icon" src="images/pressure.svg"> {{pressure}}
@@ -60,4 +79,6 @@
   <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
   <script src="vueApp.js"></script>
   <script src="index.js"></script>
+  <!-- animated icons for weather-->
+  <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
 </html>

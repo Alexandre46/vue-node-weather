@@ -44,3 +44,9 @@ input {
 .status-ajax {
   color:#99FF7E;
 }
+
+figure {
+  margin: 5em auto;
+  width: 350px;
+  height: 150px;
+}

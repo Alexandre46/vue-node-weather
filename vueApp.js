@@ -14,7 +14,8 @@ var app = new Vue({
       overcast: '', 
       temps: [],
       loading: false,
-      errored: false
+      errored: false,
+      description:''
     },
     watch: {
         // whenever question changes, this function will run
@@ -70,13 +71,43 @@ var app = new Vue({
               return list.main.temp;
             });
 
-          this.temperature = response.data.list[0].main.temp;
-          this.humidity = response.data.list[0].main.humidity + '%';
-          this.pressure = response.data.list[0].main.pressure;
-          this.wind = response.data.list[0].wind.speed + 'm/s';
-          this.overcast = response.data.list[0].weather[0].description;
-    
-        
+          //debug
+          console.log(response.data);
+
+          this.temperature  = response.data.list[0].main.temp;
+          this.humidity     = response.data.list[0].main.humidity + '%';
+          this.pressure     = response.data.list[0].main.pressure;
+          this.wind         = response.data.list[0].wind.speed + 'm/s';
+          this.overcast     = response.data.list[0].weather[0].description;
+
+          //description
+          this.description = response.data.list[0].weather[0].description;
+
+          //icons
+          var icons = new Skycons({"color": "black"});
+
+          const currentWeather = response.data.list[0].weather[0].main;
+          const currentWeatherDesc =   response.data.list[0].weather[0].description;
+
+          if(currentWeather === 'Rain'){
+              icons.set("rain", Skycons.RAIN);
+          }
+          if(currentWeather === 'Clouds'){
+              icons.set("cloudy", Skycons.CLOUDY);
+          }
+          if(currentWeather === 'Snow'){
+              icons.set("snow", Skycons.SNOW);
+          }
+          if(currentWeather === 'Windy'){
+              icons.set("wind", Skycons.WIND);
+          }
+          if(currentWeather === 'Clear' || currentWeatherDesc === '%Clear%sky%'){
+                  icons.set("clear-day", Skycons.CLEAR_DAY);
+          }
+          
+
+          icons.play();
+
             var ctx = document.getElementById("myChart");
             this.chart = new Chart(ctx, {
               type: "line",
