@@ -36,7 +36,7 @@ var app = new Vue({
         // more about the _.debounce function (and its cousin
         // _.throttle), visit: https://lodash.com/docs#debounce
         this.getCity();
-        this.debouncedGetAnswer = _.debounce(this.getData, 500)
+        this.debouncedGetAnswer = _.debounce(this.getData, 800)
     },
     methods: {
 
@@ -101,7 +101,6 @@ var app = new Vue({
 
           //country
           this.country          = response.data.city.country;
-
           //weather info
           this.temperature      = Math.round(response.data.list[0].main.temp);
           this.maxTemperature   = response.data.list[0].main.temp_max;
@@ -110,10 +109,8 @@ var app = new Vue({
           this.pressure         = response.data.list[0].main.pressure;
           this.wind             = response.data.list[0].wind.speed + 'm/s';
           this.overcast         = response.data.list[0].weather[0].description;
-
           //description
           this.description      = response.data.list[0].weather[0].description;
-
           //population
           this.population       = response.data.city.population;
 
@@ -126,8 +123,11 @@ var app = new Vue({
           console.log('current Weather: '+currentWeather);
           console.log('current Weather Description: '+currentWeatherDesc);
 
+          //change background img
+          ChangeBackgroungImage(currentWeather);
+
           if(currentWeather === 'Rain'){
-              icons.set("icon1", Skycons.RAIN);
+          icons.set("icon1", Skycons.RAIN);
           }
           if(currentWeather === 'Clouds'){
               icons.set("icon1", Skycons.CLOUDY);
@@ -142,8 +142,8 @@ var app = new Vue({
               icons.set("icon1", Skycons.CLEAR_DAY);
           }
 
-
           icons.play();
+
 
             var ctx = document.getElementById("myChart");
             this.chart = new Chart(ctx, {
@@ -224,3 +224,10 @@ var app = new Vue({
   });
 
 
+//Change div app background img pending on weather
+function ChangeBackgroungImage(currentWeather)
+{
+    var urlString = 'url(images/' + currentWeather + '.png)';
+    console.log(urlString);
+    document.getElementById('app').style.backgroundImage =  urlString;
+}
