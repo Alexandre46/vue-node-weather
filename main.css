@@ -54,4 +54,6 @@ figure {
 
 .app{
   overflow-x: hidden;
+  /* I’m taking lightgrey for the background, here
+  background-color: rgba(211, 211, 211, 0.3);*/
 }
