@@ -231,3 +231,7 @@ function ChangeBackgroungImage(currentWeather)
     console.log(urlString);
     document.getElementById('app').style.backgroundImage =  urlString;
 }
+
+function refreshPage(){
+    window.location.reload();
+}
