@@ -1,10 +1,12 @@
 const API = "https://api.openweathermap.org/data/2.5/forecast";
 const KEY = "88d2151398a5960afd2b42a1bb914c39";
+const hours = 8;
 
 var app = new Vue({
     el: "#app",
     data: {
       chart: null,
+      month: '',
       city: "City,Country code",
       country: "",
       dates: [],
@@ -14,12 +16,14 @@ var app = new Vue({
       pressure: '',
       humidity: '',
       wind: '',
-      overcast: '', 
+      overcast: '',
       temps: [],
       loading: false,
       errored: false,
       description:'',
-      population: ''
+      population: '',
+      language: 'pt',
+      forecasts: [],
     },
     watch: {
         // whenever question changes, this function will run
@@ -36,54 +40,56 @@ var app = new Vue({
         // more about the _.debounce function (and its cousin
         // _.throttle), visit: https://lodash.com/docs#debounce
         this.getCity();
-        this.debouncedGetAnswer = _.debounce(this.getData, 800)
+      this.debouncedGetAnswer = _.debounce(this.getData, 3000)
     },
     methods: {
 
+      getLanguage() {
+        const languageElement = document.getElementById('language');
+        return languageElement.value;
+      },
+
+      month() {
+        let monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        now = new Date();
+        return monthNames[now.getMonth()];
+      },
 
         getCity(){
            axios.get('https://ipapi.co/json/',{
 
            }).then( response =>{
-               console.log(response.data.city);
+             console.log(response.data);
                this.city = response.data.city;
                this.country = response.data.country;
-               console.log('ipapi country-> '+this.country);
-
-               return this.city;
+             this.postal = response.postal;
+             return [this.city, this.postal];
            })
         },
 
       getData: function() {
         this.loading = true;
-  
+
         if (this.chart != null) {
           this.chart.destroy();
         }
-
-        //fetch url
-        console.log('Fetching data from' +API);
-
-        //city introduced
-        console.log('city: '+this.city);
 
           //city without country if exists comma
           //separated city by country
           if(this.city.indexOf(',') > -1){
               var onlyCity = this.city.split(',');
               this.city = onlyCity[0];
-
               //country
               this.country = onlyCity[1];
           }
-
-
 
         axios
           .get(API, {
             params: {
               q: this.city+','+this.country,
-              units: "metric",
+              lang: this.getLanguage(),
+              cnt: hours,
+              units: language === 'pt' ? "metric" : 'imperial',
               appid: KEY
             }
           })
@@ -91,12 +97,16 @@ var app = new Vue({
             this.dates = response.data.list.map(list => {
               return list.dt_txt;
             });
-  
+
             this.temps = response.data.list.map(list => {
               return list.main.temp;
             });
 
-          //debug
+            this.forecasts = response.data.list.map(list => {
+              list.icon = "http://openweathermap.org/img/w/" + list.weather[0].icon + ".png";
+              return list;
+            });
+
           console.log(response.data);
 
           //country
@@ -114,17 +124,14 @@ var app = new Vue({
           //population
           this.population       = response.data.city.population;
 
+
           //icons
           var icons = new Skycons({"color": "black"});
-
           const currentWeather = response.data.list[0].weather[0].main;
           const currentWeatherDesc =   response.data.list[0].weather[0].description;
 
-          console.log('current Weather: '+currentWeather);
-          console.log('current Weather Description: '+currentWeatherDesc);
-
           //change background img
-          ChangeBackgroungImage(currentWeather);
+            ChangeBgImage(currentWeather);
 
           if(currentWeather === 'Rain'){
           icons.set("icon1", Skycons.RAIN);
@@ -170,11 +177,11 @@ var app = new Vue({
                     label: function(tooltipItem, data) {
                       var label =
                         data.datasets[tooltipItem.datasetIndex].label || "";
-  
+
                       if (label) {
                         label += ": ";
                       }
-  
+
                       label += Math.floor(tooltipItem.yLabel);
                       return label + "°C";
                     }
@@ -216,7 +223,7 @@ var app = new Vue({
           })
           .catch(error => {
             console.log(error);
-            this.errored = true;
+            this.error = true;
           })
           .finally(() => (this.loading = false));
       }
@@ -225,9 +232,11 @@ var app = new Vue({
 
 
 //Change div app background img pending on weather
-function ChangeBackgroungImage(currentWeather)
-{
-    var urlString = 'url(images/' + currentWeather + '.png)';
-    console.log(urlString);
+function ChangeBgImage(currentWeather) {
+  const urlString = 'url(images/' + currentWeather + '.png)';
     document.getElementById('app').style.backgroundImage =  urlString;
+}
+
+function refreshPage(){
+    window.location.reload();
 }
