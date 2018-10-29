@@ -12,23 +12,23 @@
   <body>
     <div id="app">
       <div class="container">
+          <br>
         <div class="my-5">
           <form v-on:submit.prevent="getData">
             <div class="row">
               <div class="col-md-6 offset-md-3">
-                <h3>Insert your city:</h3>
-                <h5>(or browser will auto-detect *)</h5>
                 <div class="input-group">
                   <input type="text" class="autocomplete form-control" placeholder="City,Country code (eg: Dublin,IE)" v-model="city">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Submit</button>
+                    <button class="btn btn-primary btn-outline-dark button-for-submit" type="submit">Submit</button>
                   </div>
                 </div>
-                <p>
-                  <i>
-                    Attention: 93% browser geolocation detection compatible, so be patience if you're not working.
-                  </i>
-                </p>
+                <div class="col-xs-12">
+                      <button class="btn btn-primary btn-large btn-block btn-outline-info button-for-submit" type="submit" onClick="refreshPage()">
+                          Auto-detect
+                      </button>
+                  </div>
+                <p><i>Attention: 93% browser geolocation detection compatible, so be patience if you're not working.</i></p>
               </div>
             </div>
           </form>
