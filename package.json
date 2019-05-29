@@ -1,10 +1,11 @@
 {
   "name": "weather",
   "version": "1.0.0",
-  "description": "VueJS with APIWeather test",
+  "description": "VueJS Weather",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "serve"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,17 @@
     "url": "https://github.com/Alexandre46/vue-basic-weatherApp/issues"
   },
   "homepage": "https://github.com/Alexandre46/vue-basic-weatherApp#readme",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "lodash": "^4.17.11",
     "request": "^2.88.0",
+    "serve": "^10.0.2",
+    "vue-i18n": "^8.11.2",
     "yargs": "^12.0.2"
   }
 }

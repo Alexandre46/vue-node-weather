@@ -3,55 +3,154 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Vue.js Weather App</title>
+    <title>Vue Weather App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:extra-light|Vast+Shadow" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+
   </head>
   <body>
     <div id="app">
       <div class="container">
-        <div class="my-5">
-          <form v-on:submit.prevent="getData">
-            <div class="row">
-              <div class="col-md-6 offset-md-3">
-                <h4>Introduce your City:</h4>
-                <h5>Or just type your city</h5>
-                <div class="input-group">
-                  <input type="text" class="form-control" v-model="city">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit">Submit</button>
+
+        <div class="row">
+          <div class="col-12 col-sm-4 offset-sm-8 float-right mt-1 pr-2">
+            <label for="language"> Please select language: </label>
+            <select class="form-control" name="language" id="language">
+              <option value="en"> English</option>
+              <option value="pt" selected> Português</option>
+            </select>
+          </div>
+        </div>
+
+        <br>
+        <div>
+          <h3>
+          </h3>
+        </div>
+
+        <div class="row">
+          <div class="col-12 mt-2 mb-2">
+            <div class="my-5">
+              <form v-on:submit.prevent="getData">
+                <div class="row">
+                  <div class="align-items-center col-sm-8 col-sm-offset-2">
+                    <div class="input-group">
+                      <input type="text" class="autocomplete form-control"
+                             placeholder="City,Country code (eg: Lisboa,Portugal)" v-model="city">
+                      <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit">Submit</button>
+                      </div>
+                    </div>
+                    <div class="col-xs-12">
+                      <button class="btn btn-info btn-block btn-large" type="submit" onClick="refreshPage()">
+                        Auto-detect
+                      </button>
+                    </div>
+                    <p><i>Attention: Browser will detect your current geolocation to serve your city weather results</i>
+                    </p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="mt-2 mb-2 mx-auto col-12">
+            <div class="my-5">
+              <div class="alert alert-info" v-show="loading">
+                Loading...
+              </div>
+              <div class="container row">
+                <div class="col-12">
+                  <h5 v-if="month"> Month: {{month}}</h5>
+                </div>
+              </div>
+              <div class="container row">
+                <div class="col-xs-12">
+                  <h4>{{city}} / {{country}}</h4>
+                </div>
+              </div>
+
+              <div class="container row">
+                <div class="col-xs-4 col-sm-6">
+                  <figure class="icons">
+                    <canvas id="icon1" width="64" height="64"></canvas>
+                  </figure>
+                </div>
+                <div class="col-sm-6">
+                  <div class="col-xs-4 col-sm-6 container row">
+                    <h3>{{temperature}} </h3>ºC
+                  </div>
+                  <div class="col-xs-4">
+                    <p>Máx: {{maxTemperature}} ºC</p>
+                    <p>Min: {{minTemperature}} ºC</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </div>
-        <div class="my-5">
-          <div class="alert alert-info" v-show="loading">
-            Loading...
-          </div>
-          <div>
-             <h4>Current weather in {{city}} is      
-                {{temperature}} º C </h4> 
-          </div>         
-          <div>
+
+              <br>
+              <div class="container row">
+                <div class="col-xs-12 col-sm-6">
+                  <h4>Information:</h4> {{description}}
+                </div>
+                <br>
+                <div class="col-xs-12 col-sm-6">
+                  <h4>Additional info: </h4> {{population}} (population)
+                </div>
+              </div>
+
+              <br>
+              <br>
+
+              <!-- Cards (all week) -->
+              <div v-for="forecast in forecasts">
+                <div class="card mb-3" style="max-width: 540px;">
+                  <div class="row no-gutters">
+                    <div class="col-md-4 mt-2 mx-auto">
+                      <img v-bind:src="forecast.icon" width="80" height="80"/>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title">Datetime {{forecast.dt_txt}}</h5>
+                        <p class="card-text"> Min temp: {{forecast.main.temp_min}} ºC</p>
+                        <p class="card-text"> Humidity: ~ {{forecast.main.humidity}} %</p>
+                        <p class="card-text">
+                          <small class="text-muted">Last updated 1 min ago</small>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <h4> 24-hour Graph</h4>
+              <div>
                 <img class="icon" src="images/humidity.svg"> {{humidity}}
                 <img class="icon" src="images/pressure.svg"> {{pressure}}
-                <img class="icon" src="images/wind.svg"> {{wind}}      
-          </div>
-          <div v-show="chart != null">
-            <canvas id="myChart"></canvas>
+                <img class="icon" src="images/wind.svg"> {{wind}}
+              </div>
+              <div v-show="chart != null">
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <!--lodash cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script src="vueApp.js"></script>
+    <script src="index.js"></script>
+    <!-- animated icons for weather-->
+    <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
-  <script src="vueApp.js"></script>
-  <script src="index.js"></script>
 </html>

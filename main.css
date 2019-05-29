@@ -1,3 +1,8 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+
 #weather {
     padding: 15px;
     vertical-align: middle;
@@ -30,3 +35,34 @@
     top: 2px;
     padding-left: 8px;
   }
+
+input {
+  padding:8px 20px;
+  border-radius: 2px;
+  border:0;
+  font-size:20px;
+}
+.status-key,
+.status-ajax {
+  margin:10px 0;
+}
+.status-ajax {
+  color:#99FF7E;
+}
+
+figure {
+  margin: 2em auto;
+  width: 300px;
+  height: 100px;
+}
+
+.app{
+  overflow-x: hidden;
+  /* I’m taking lightgrey for the background, here
+  background-color: rgba(211, 211, 211, 0.3);*/
+}
+
+.button-for-submit{
+  border-color:black;
+
+}
