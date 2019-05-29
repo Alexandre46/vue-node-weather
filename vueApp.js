@@ -240,3 +240,4 @@ function ChangeBgImage(currentWeather) {
 function refreshPage(){
     window.location.reload();
 }
+

@@ -24,37 +24,25 @@
           </div>
         </div>
 
-        <br>
-        <div>
-          <h3>
-          </h3>
-        </div>
-
-        <div class="row">
-          <div class="col-12 mt-2 mb-2">
-            <div class="my-5">
-              <form v-on:submit.prevent="getData">
-                <div class="row">
-                  <div class="align-items-center col-sm-8 col-sm-offset-2">
-                    <div class="input-group">
-                      <input type="text" class="autocomplete form-control"
-                             placeholder="City,Country code (eg: Lisboa,Portugal)" v-model="city">
-                      <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit">Submit</button>
-                      </div>
-                    </div>
-                    <div class="col-xs-12">
-                      <button class="btn btn-info btn-block btn-large" type="submit" onClick="refreshPage()">
-                        Auto-detect
-                      </button>
-                    </div>
-                    <p><i>Attention: Browser will detect your current geolocation to serve your city weather results</i>
-                    </p>
+        <div class="my-5">
+          <form v-on:submit.prevent="getData">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="input-group">
+                  <input type="text" class="autocomplete form-control" placeholder="City,Country code (eg: Dublin,IE)" v-model="city">
+                  <div class="input-group-append">
+                    <button class="btn btn-dark" type="submit">Submit</button>
                   </div>
                 </div>
-              </form>
+                <div class="col-xs-12">
+                      <button class="btn btn-info btn-block" type="submit" onClick="refreshPage()">
+                          Auto-detect
+                      </button>
+                  </div>
+                <p><i>Attention: 93% browser geolocation detection compatible, so be patience if you're not working.</i></p>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
         <div class="row">
@@ -103,6 +91,7 @@
               </div>
 
               <br>
+              <h4> 24-hour Forecast for {{city}}</h4>
               <br>
 
               <!-- Cards (all week) -->
@@ -117,6 +106,7 @@
                         <h5 class="card-title">Datetime {{forecast.dt_txt}}</h5>
                         <p class="card-text"> Min temp: {{forecast.main.temp_min}} ºC</p>
                         <p class="card-text"> Humidity: ~ {{forecast.main.humidity}} %</p>
+                        <p class="card-text"> Description: {{forecast.weather[0].description}} </p>
                         <p class="card-text">
                           <small class="text-muted">Last updated 1 min ago</small>
                         </p>
@@ -127,8 +117,7 @@
               </div>
 
 
-              <h4> 24-hour Graph</h4>
-              <div>
+              <div class="mt-2">
                 <img class="icon" src="images/humidity.svg"> {{humidity}}
                 <img class="icon" src="images/pressure.svg"> {{pressure}}
                 <img class="icon" src="images/wind.svg"> {{wind}}
@@ -139,7 +128,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
