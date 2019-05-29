@@ -12,11 +12,11 @@
   </head>
   <body>
     <div id="app">
-      <div class="container">
+      <div class="full-container">
 
         <div class="row">
-          <div class="col-12 col-sm-4 offset-sm-8 float-right mt-1 pr-2">
-            <label for="language"> Please select language: </label>
+          <div class="col-12 col-sm-2 offset-sm-9 mr-2">
+            <label for="language"> Language: </label>
             <select class="form-control" name="language" id="language">
               <option value="en"> English</option>
               <option value="pt" selected> Português</option>
@@ -29,16 +29,21 @@
             <div class="row">
               <div class="col-md-6 offset-md-3">
                 <div class="input-group">
-                  <input type="text" class="autocomplete form-control" placeholder="City,Country code (eg: Dublin,IE)" v-model="city">
+                  <input type="text"
+                         class="autocomplete form-control"
+                         placeholder="City,Country code (eg: Dublin,IE)"
+                         v-model="city">
                   <div class="input-group-append">
                     <button class="btn btn-dark" type="submit">Submit</button>
                   </div>
                 </div>
-                <div class="col-xs-12">
-                      <button class="btn btn-info btn-block" type="submit" onClick="refreshPage()">
-                          Auto-detect
-                      </button>
+                <div class="row">
+                  <div class="col-12">
+                    <button class="btn btn-primary btn-block" type="submit" onClick="refreshPage()">
+                      Auto-detect
+                    </button>
                   </div>
+                </div>
                 <p><i>Attention: 93% browser geolocation detection compatible, so be patience if you're not working.</i></p>
               </div>
             </div>
@@ -46,70 +51,62 @@
         </div>
 
         <div class="row">
-          <div class="mt-2 mb-2 mx-auto col-12">
+          <div class="mt-2 mb-2 ml-4 mr-4 col-12">
             <div class="my-5">
-              <div class="alert alert-info" v-show="loading">
+              <div class="alert alert-warning" v-show="loading">
                 Loading...
               </div>
-              <div class="container row">
-                <div class="col-12">
-                  <h5 v-if="month"> Month: {{month}}</h5>
-                </div>
-              </div>
-              <div class="container row">
-                <div class="col-xs-12">
-                  <h4>{{city}} / {{country}}</h4>
-                </div>
+              <div class="city-container">
+                <h4> Today</h4>
               </div>
 
-              <div class="container row">
-                <div class="col-xs-4 col-sm-6">
-                  <figure class="icons">
-                    <canvas id="icon1" width="64" height="64"></canvas>
-                  </figure>
-                </div>
-                <div class="col-sm-6">
-                  <div class="col-xs-4 col-sm-6 container row">
-                    <h3>{{temperature}} </h3>ºC
-                  </div>
-                  <div class="col-xs-4">
-                    <p>Máx: {{maxTemperature}} ºC</p>
-                    <p>Min: {{minTemperature}} ºC</p>
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="mx-auto text-center justify-content-center">
+                    <h2>{{city}} / {{country}}</h2>
+                    <figure class="icons">
+                      <canvas id="icon1" width="128" height="128"></canvas>
+                    </figure>
+                    <br>
+                    <h3>{{temperature}} ºC</h3>
                   </div>
                 </div>
-              </div>
-
-              <br>
-              <div class="container row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-12 col-sm-4">
+                  <div class="col-12">
+                    <p><img src="./images/Thermometer-100.svg"/> Máx: {{maxTemperature}} ºC</p>
+                    <p><img src="./images/Thermometer-Zero.svg"/> Min: {{minTemperature}} ºC</p>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
                   <h4>Information:</h4> {{description}}
-                </div>
-                <br>
-                <div class="col-xs-12 col-sm-6">
+                  <br><br>
                   <h4>Additional info: </h4> {{population}} (population)
                 </div>
               </div>
 
               <br>
+              <br>
               <h4> 24-hour Forecast for {{city}}</h4>
               <br>
 
               <!-- Cards (all week) -->
-              <div v-for="forecast in forecasts">
-                <div class="card mb-3" style="max-width: 540px;">
-                  <div class="row no-gutters">
-                    <div class="col-md-4 mt-2 mx-auto">
-                      <img v-bind:src="forecast.icon" width="80" height="80"/>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                        <h5 class="card-title">Datetime {{forecast.dt_txt}}</h5>
-                        <p class="card-text"> Min temp: {{forecast.main.temp_min}} ºC</p>
-                        <p class="card-text"> Humidity: ~ {{forecast.main.humidity}} %</p>
-                        <p class="card-text"> Description: {{forecast.weather[0].description}} </p>
-                        <p class="card-text">
-                          <small class="text-muted">Last updated 1 min ago</small>
-                        </p>
+              <div class="card-deck">
+                <div v-for="forecast in forecasts">
+                  <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                      <div class="col-md-4 mt-2 mx-auto">
+                        <img v-bind:src="forecast.icon" width="80" height="80"/>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">Datetime {{forecast.dt_txt}}</h5>
+                          <p class="card-text"> Min temp: {{forecast.main.temp_min}} ºC</p>
+                          <p class="card-text"> Humidity: ~ {{forecast.main.humidity}} %</p>
+                          <p class="card-text"> Description: {{forecast.weather[0].description}} </p>
+                          <p class="card-text">
+                            <small class="text-muted">Last updated 1 min ago</small>
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -117,12 +114,13 @@
               </div>
 
 
-              <div class="mt-2">
+
+              <div class="mt-2 pt-1">
                 <img class="icon" src="images/humidity.svg"> {{humidity}}
                 <img class="icon" src="images/pressure.svg"> {{pressure}}
                 <img class="icon" src="images/wind.svg"> {{wind}}
               </div>
-              <div v-show="chart != null">
+              <div v-show="chart != null" class="mt-1">
                 <canvas id="myChart"></canvas>
               </div>
             </div>

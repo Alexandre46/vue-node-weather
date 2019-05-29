@@ -235,6 +235,8 @@ var app = new Vue({
 function ChangeBgImage(currentWeather) {
   const urlString = 'url(images/' + currentWeather + '.png)';
     document.getElementById('app').style.backgroundImage =  urlString;
+    document.getElementById('app').style.backgroundPosition = 'center';
+    document.getElementById('app').style.backgroundRepeat = 'no-repeat';
 }
 
 function refreshPage(){
