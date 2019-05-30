@@ -6,8 +6,9 @@
 #weather {
     padding: 15px;
     vertical-align: middle;
+    overflow: hidden;
   }
-  
+
   .temperature {
     font-family: 'Vast Shadow', cursive;
     font-size: 40px;
@@ -15,7 +16,7 @@
     position: absolute;
     left: 80px;
   }
-  
+
   #temp-values {
     text-align: right;
     text-justify: distribute;
@@ -23,13 +24,13 @@
     position: relative;
     top: -60px;
   }
-  
+
   #info {
     padding-left: 20px;
     position: relative;
     top: -20px;
   }
-  
+
   .icon {
     position: inherit;
     top: 2px;

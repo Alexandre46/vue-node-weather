@@ -237,6 +237,7 @@ function ChangeBgImage(currentWeather) {
     document.getElementById('app').style.backgroundImage =  urlString;
     document.getElementById('app').style.backgroundPosition = 'center';
     document.getElementById('app').style.backgroundRepeat = 'no-repeat';
+    document.getElementById('app').style.overflow = 'hidden';
 }
 
 function refreshPage(){
