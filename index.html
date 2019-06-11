@@ -17,7 +17,7 @@
         <div class="row">
           <div class="col-12 col-sm-2 offset-sm-9 mr-2">
             <label for="language"> Language: </label>
-            <select class="form-control" name="language" id="language">
+            <select v-on:change="onChange" class="form-control" name="language" id="language">
               <option value="en"> English</option>
               <option value="pt" selected> Português</option>
             </select>
@@ -57,7 +57,7 @@
                 Loading...
               </div>
               <div class="city-container">
-                <h4> Today</h4>
+                <h4> {{ $t("today") }}</h4>
               </div>
 
               <div class="row">
@@ -78,15 +78,15 @@
                   </div>
                 </div>
                 <div class="col-12 col-sm-4">
-                  <h4>Information:</h4> {{description}}
+                  <h4> {{ $t("information")}} </h4> {{description}}
                   <br><br>
-                  <h4>Additional info: </h4> {{population}} (population)
+                  <h4> {{ $t("additional-info") }} </h4> {{population}} (population)
                 </div>
               </div>
 
               <br>
               <br>
-              <h4> 24-hour Forecast for {{city}}</h4>
+              <h4> {{ $t("24-hour-forecast") }} {{city}}</h4>
               <br>
 
               <!-- Cards (all week) -->
@@ -129,6 +129,7 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vue-i18n/dist/vue-i18n.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>

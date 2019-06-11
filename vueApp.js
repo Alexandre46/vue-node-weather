@@ -2,8 +2,42 @@ const API = "https://api.openweathermap.org/data/2.5/forecast";
 const KEY = "88d2151398a5960afd2b42a1bb914c39";
 const hours = 8;
 
+const defaultLocale = 'pt';
+
+const languages = {
+    en: {
+      "today": "Today",
+      "information": "Information",
+      "additional-info": "Additional info",
+      "24-hour-forecast": "24hour forecast for",
+      "datetime": "Date & Time:",
+      "min-temp": "Min. Temperature:",
+      "humidity": "Humidity",
+      "description": "Description"
+    },
+    pt: {
+      "today" : "Hoje",
+      "information" :  "Informação",
+      "additional-info" : "Informação adicional",
+      "24-hour-forecast" : "Previsão meteorológica 24 horas para",
+      "datetime" : "Dia e hora:",
+      "min-temp" : "Temperatura mínima:",
+      "humidity" : "Humidade:",
+      "description" : "Descrição:"
+    },
+};
+
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+  locale: locale(),
+  fallbackLocale: 'en',
+  messages: languages
+});
+
+
 var app = new Vue({
     el: "#app",
+    i18n: i18n,
     data: {
       chart: null,
       month: '',
@@ -25,6 +59,8 @@ var app = new Vue({
       language: 'pt',
       forecasts: [],
     },
+    currentLocale: 'pt',
+    locales: [ {id: 'en', name: 'English'}, {id: 'pt', name: 'Portugues'}],
     watch: {
         // whenever question changes, this function will run
         city: function (newQuestion, oldQuestion) {
@@ -43,10 +79,11 @@ var app = new Vue({
       this.debouncedGetAnswer = _.debounce(this.getData, 3000)
     },
     methods: {
-
+      onChange: function(){
+        i18n.locale = locale()
+      },
       getLanguage() {
-        const languageElement = document.getElementById('language');
-        return languageElement.value;
+        locale()
       },
 
       month() {
@@ -131,7 +168,7 @@ var app = new Vue({
           const currentWeatherDesc =   response.data.list[0].weather[0].description;
 
           //change background img
-            ChangeBgImage(currentWeather);
+          ChangeBgImage(currentWeather);
 
           if(currentWeather === 'Rain'){
           icons.set("icon1", Skycons.RAIN);
@@ -233,8 +270,7 @@ var app = new Vue({
 
 //Change div app background img pending on weather
 function ChangeBgImage(currentWeather) {
-  const urlString = 'url(images/' + currentWeather + '.png)';
-    document.getElementById('app').style.backgroundImage =  urlString;
+    document.getElementById('app').style.backgroundImage =  'url(images/' + currentWeather + '.png)';
     document.getElementById('app').style.backgroundPosition = 'center';
     document.getElementById('app').style.backgroundRepeat = 'no-repeat';
     document.getElementById('app').style.overflow = 'hidden';
@@ -244,3 +280,7 @@ function refreshPage(){
     window.location.reload();
 }
 
+function locale() {
+  const languageElement = document.getElementById('language');
+  return languageElement.value;
+}

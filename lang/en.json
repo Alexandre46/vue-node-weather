@@ -1,0 +1,10 @@
+{
+  "today" : "Today",
+  "information" :  "Information",
+  "additional-info" : "Additional info",
+  "24-hour-forecast" : "24hour forecast for",
+  "datetime" : "Date & Time:",
+  "min-temp" : "Min. Temperature:",
+  "humidity" : "Humidity",
+  "description" : "Description"
+}
