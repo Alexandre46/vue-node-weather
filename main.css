@@ -3,6 +3,10 @@
   margin: 0;
 }
 
+body{
+  overflow-x: hidden;
+}
+
 #weather {
     padding: 15px;
     vertical-align: middle;
@@ -65,5 +69,12 @@ figure {
 
 .button-for-submit{
   border-color:black;
+}
 
+.graph {
+  width: 80%;
+  text-align:center;
+  background-color: whitesmoke;
+  background-position: center;
+  opacity: 0.8
 }

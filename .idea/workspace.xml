@@ -2,80 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52ce3a3e-02a8-4ccc-a7ce-a57521072cc6" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lang/pt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lang/vueLocale.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/lib/enoent.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/lib/enoent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/lib/parse.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/lib/parse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/lib/util/escape.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/lib/util/readShebang.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/lib/util/readShebang.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/lib/util/resolveCommand.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/lib/util/resolveCommand.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/cross-spawn/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/cross-spawn/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/decamelize/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/decamelize/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/decamelize/license" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/decamelize/license" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/decamelize/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/decamelize/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/execa/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/execa/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/execa/lib/errname.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/execa/lib/errname.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/execa/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/execa/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/map-age-cleaner/dist/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/map-age-cleaner/dist/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/map-age-cleaner/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/map-age-cleaner/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mem/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mem/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mem/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mem/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mimic-fn/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mimic-fn/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/mimic-fn/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/mimic-fn/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/os-locale/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/os-locale/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/os-locale/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/os-locale/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-is-promise/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-is-promise/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-is-promise/license" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-is-promise/license" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-is-promise/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-is-promise/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-limit/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-limit/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-limit/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-limit/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-try/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-try/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/p-try/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/p-try/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/semver/bin/semver" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/semver/bin/semver" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/semver/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/semver/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/semver/semver.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/semver/semver.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/build.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/matchrecursive.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/unicode-base.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/unicode-blocks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/unicode-categories.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/unicode-properties.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/addons/unicode-scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/lib/xregexp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/build.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/matchrecursive.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/unicode-base.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/unicode-blocks.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/unicode-categories.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/unicode-properties.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/addons/unicode-scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/src/xregexp.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/xregexp/xregexp-all.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs-parser/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs-parser/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs-parser/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs-parser/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs-parser/lib/tokenize-arg-string.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs-parser/lib/tokenize-arg-string.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs-parser/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs-parser/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/lib/command.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/lib/command.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/lib/middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/lib/middleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/lib/usage.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/lib/usage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/locales/nb.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/locales/nb.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/locales/nn.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/locales/nn.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/yargs/yargs.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/yargs/yargs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plugins/i18n.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vueApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/vueApp.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -88,44 +16,52 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vueApp.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/package.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="230">
+                  <caret line="31" selection-start-line="31" selection-end-line="31" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/index.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="371">
+                  <caret line="93" column="31" selection-start-line="93" selection-start-column="31" selection-end-line="93" selection-end-column="31" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/main.css">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="479">
+                  <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/vueApp.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1605">
+                  <caret line="186" column="38" selection-start-line="186" selection-start-column="24" selection-end-line="186" selection-end-column="38" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -150,20 +86,19 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/index.js" />
-        <option value="$PROJECT_DIR$/main.css" />
         <option value="$PROJECT_DIR$/lang/pt.json" />
         <option value="$PROJECT_DIR$/vueLocale.js" />
         <option value="$PROJECT_DIR$/lang/en.json" />
         <option value="$PROJECT_DIR$/require.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/lang/vueLocale.js" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/vueApp.js" />
+        <option value="$PROJECT_DIR$/main.css" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1" />
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -246,12 +181,12 @@
       <workItem from="1559160520889" duration="483000" />
       <workItem from="1559161961388" duration="4971000" />
       <workItem from="1559557551649" duration="36000" />
-      <workItem from="1560286594977" duration="8128000" />
+      <workItem from="1560286594977" duration="10609000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30387000" />
+    <option name="totallyTimeSpent" value="32868000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -271,8 +206,8 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.3464567" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50214595" side_tool="true" visible="true" weight="0.3464567" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49785408" visible="true" weight="0.2152231" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50214595" side_tool="true" visible="true" weight="0.2152231" />
       <window_info anchor="bottom" id="Version Control" order="11" sideWeight="0.4985694" weight="0.328084" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -436,24 +371,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.css">
+    <entry file="file://$PROJECT_DIR$/vueApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        <state relative-caret-position="-1605">
+          <caret line="186" column="38" selection-start-line="186" selection-start-column="24" selection-end-line="186" selection-end-column="38" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vueApp.js">
+    <entry file="file://$PROJECT_DIR$/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+        <state relative-caret-position="479">
+          <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="23" column="16" lean-forward="true" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        <state relative-caret-position="371">
+          <caret line="93" column="31" selection-start-line="93" selection-start-column="31" selection-end-line="93" selection-end-column="31" />
         </state>
       </provider>
     </entry>

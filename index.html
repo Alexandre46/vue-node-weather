@@ -11,59 +11,58 @@
 
   </head>
   <body>
-    <div id="app">
-      <div class="full-container">
-
-        <div class="row">
-          <div class="col-12 col-sm-2 offset-sm-9 mr-2">
-            <label for="language"> Language: </label>
-            <select v-on:change="onChange" class="form-control" name="language" id="language">
-              <option value="en"> English</option>
-              <option value="pt" selected> Português</option>
-            </select>
-          </div>
+    <div id="app" class="full-container">
+      <div class="row">
+        <div class="col-12 col-sm-2 offset-sm-9 mr-2">
+          <label for="language"> Language: </label>
+          <select v-on:change="onChange" class="form-control" name="language" id="language">
+            <option value="en"> English</option>
+            <option value="pt" selected> Português</option>
+          </select>
         </div>
+      </div>
 
-        <div class="my-5">
-          <form v-on:submit.prevent="getData">
-            <div class="row">
-              <div class="col-md-6 offset-md-3">
-                <div class="input-group">
-                  <input type="text"
-                         class="autocomplete form-control"
-                         placeholder="City,Country code (eg: Dublin,IE)"
-                         v-model="city">
-                  <div class="input-group-append">
-                    <button class="btn btn-dark" type="submit">Submit</button>
-                  </div>
+      <div class="my-5">
+        <form v-on:submit.prevent="getData">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="input-group">
+                <input type="text"
+                       class="autocomplete form-control"
+                       placeholder="City,Country code (eg: Dublin,IE)"
+                       v-model="city">
+                <div class="input-group-append">
+                  <button class="btn btn-dark" type="submit"> {{ $t("submit")}}</button>
                 </div>
-                <div class="row">
-                  <div class="col-12">
-                    <button class="btn btn-primary btn-block" type="submit" onClick="refreshPage()">
-                      Auto-detect
-                    </button>
-                  </div>
-                </div>
-                <p><i>Attention: 93% browser geolocation detection compatible, so be patience if you're not working.</i></p>
               </div>
-            </div>
-          </form>
-        </div>
-
-        <div class="row">
-          <div class="mt-2 mb-2 ml-4 mr-4 col-12">
-            <div class="my-5">
-              <div class="alert alert-warning" v-show="loading">
-                Loading...
-              </div>
-              <div class="city-container">
-                <h4> {{ $t("today") }}</h4>
-              </div>
-
               <div class="row">
-                <div class="col-12 col-sm-4">
-                  <div class="mx-auto text-center justify-content-center">
-                    <h2>{{city}} / {{country}}</h2>
+                <div class="col-12">
+                  <button class="btn btn-primary btn-block" type="submit" onClick="refreshPage()">
+                    {{ $t("auto-detect")}}
+                  </button>
+                </div>
+              </div>
+              <p><i> {{ $t("detect-info")}}</i></p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="row">
+        <div class="mt-2 mb-2 ml-4 mr-4 col-12">
+          <div class="my-5">
+            <div class="alert alert-warning" v-show="loading">
+              {{ $t("loading")}}...
+            </div>
+            <div class="city-container">
+              <h4> {{ $t("today") }}</h4>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-4">
+                <div class="mx-auto text-center justify-content-center">
+                  <h2>{{city}} / {{country}}</h2>
+                  <div class="mt-1">
                     <figure class="icons">
                       <canvas id="icon1" width="128" height="128"></canvas>
                     </figure>
@@ -71,41 +70,46 @@
                     <h3>{{temperature}} ºC</h3>
                   </div>
                 </div>
-                <div class="col-12 col-sm-4">
-                  <div class="col-12">
-                    <p><img src="./images/Thermometer-100.svg"/> Máx: {{maxTemperature}} ºC</p>
-                    <p><img src="./images/Thermometer-Zero.svg"/> Min: {{minTemperature}} ºC</p>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-4">
-                  <h4> {{ $t("information")}} </h4> {{description}}
-                  <br><br>
-                  <h4> {{ $t("additional-info") }} </h4> {{population}} (population)
+              </div>
+              <div class="col-12 col-sm-4">
+                <div class="col-12">
+                  <p><img src="./images/Thermometer-100.svg"/> Máx: {{maxTemperature}} ºC</p>
+                  <p><img src="./images/Thermometer-Zero.svg"/> Min: {{minTemperature}} ºC</p>
                 </div>
               </div>
+              <div class="col-12 col-sm-4">
+                <h4> {{ $t("information")}} </h4> {{description}}
+                <br><br>
+                <h4> {{ $t("additional-info") }} </h4> {{population}} {{ $t("population")}}
+              </div>
+            </div>
 
-              <br>
-              <br>
-              <h4> {{ $t("24-hour-forecast") }} {{city}}</h4>
-              <br>
+            <br>
+            <br>
+            <h4> {{ $t("24-hour-forecast") }} {{city}}</h4>
+            <br>
 
-              <!-- Cards (all week) -->
-              <div class="card-deck">
-                <div v-for="forecast in forecasts">
-                  <div class="card mb-3" style="max-width: 540px;">
-                    <div class="row no-gutters">
-                      <div class="col-md-4 mt-2 mx-auto">
-                        <img v-bind:src="forecast.icon" width="80" height="80"/>
-                      </div>
-                      <div class="col-md-8">
-                        <div class="card-body">
-                          <h5 class="card-title">Datetime {{forecast.dt_txt}}</h5>
-                          <p class="card-text"> Min temp: {{forecast.main.temp_min}} ºC</p>
-                          <p class="card-text"> Humidity: ~ {{forecast.main.humidity}} %</p>
-                          <p class="card-text"> Description: {{forecast.weather[0].description}} </p>
-                          <p class="card-text">
-                            <small class="text-muted">Last updated 1 min ago</small>
-                          </p>
+            <!-- Cards (all week) -->
+              <div class="row">
+                <div class="col">
+                  <div class="card-deck">
+                    <div v-for="forecast in forecasts">
+                      <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                          <div class="col-md-4 mt-2 mx-auto">
+                            <img v-bind:src="forecast.icon" width="80" height="80"/>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="card-body">
+                              <h5 class="card-title">{{ $t("datetime")}} {{forecast.dt_txt}}</h5>
+                              <p class="card-text"> {{ $t("min-temp")}}: {{forecast.main.temp_min}} ºC</p>
+                              <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.main.humidity}} %</p>
+                              <p class="card-text"> {{ $t("description")}}: {{forecast.weather[0].description}} </p>
+                              <p class="card-text">
+                                <small class="text-muted"> {{ $t("last-update")}}</small>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -114,16 +118,22 @@
               </div>
 
 
-
-              <div class="mt-2 pt-1">
-                <img class="icon" src="images/humidity.svg"> {{humidity}}
-                <img class="icon" src="images/pressure.svg"> {{pressure}}
-                <img class="icon" src="images/wind.svg"> {{wind}}
+            <div class="row graph-header">
+              <div class="col">
+                <div class="mt-3 pt-1">
+                  <img class="icon" src="images/humidity.svg"> {{humidity}}
+                  <img class="icon" src="images/pressure.svg"> {{pressure}}
+                  <img class="icon" src="images/wind.svg"> {{wind}}
+                </div>
               </div>
-              <div v-show="chart != null" class="mt-1">
+            </div>
+
+            <div class="mt-3 graph">
+              <div v-show="chart != null">
                 <canvas id="myChart"></canvas>
               </div>
             </div>
+
           </div>
         </div>
       </div>

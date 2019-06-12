@@ -6,6 +6,10 @@ const defaultLocale = 'pt';
 
 const languages = {
     en: {
+      "submit" : "Submit",
+      "auto-detect" : "Auto detect",
+      "detect-info" : "Attention: 93% browser geolocation detection compatible, so be patience if you're using doesn't work",
+      "loading" : "Loading",
       "today": "Today",
       "information": "Information",
       "additional-info": "Additional info",
@@ -13,9 +17,16 @@ const languages = {
       "datetime": "Date & Time:",
       "min-temp": "Min. Temperature:",
       "humidity": "Humidity",
-      "description": "Description"
+      "description": "Description",
+      "population" : "People",
+      "last-update" : "Last update 1 minute ago",
+
     },
     pt: {
+      "submit" : "Submeter",
+      "auto-detect" : "Detectar automaticamente",
+      "detect-info" : "Atenção: 93% da geolocalização dos browsers faz a deteção, pedimos a sua compreensão caso não seja possível realizar no que está a usar.",
+      "loading" : "Carregando",
       "today" : "Hoje",
       "information" :  "Informação",
       "additional-info" : "Informação adicional",
@@ -23,7 +34,11 @@ const languages = {
       "datetime" : "Dia e hora:",
       "min-temp" : "Temperatura mínima:",
       "humidity" : "Humidade:",
-      "description" : "Descrição:"
+      "description" : "Descrição:",
+      "population" : "Pessoas",
+      "last-update" : "Ultima actualização há 1 min atrás",
+
+
     },
 };
 
@@ -81,6 +96,7 @@ var app = new Vue({
     methods: {
       onChange: function(){
         i18n.locale = locale()
+        this.getData()
       },
       getLanguage() {
         locale()
@@ -124,7 +140,7 @@ var app = new Vue({
           .get(API, {
             params: {
               q: this.city+','+this.country,
-              lang: this.getLanguage(),
+              lang: locale(),
               cnt: hours,
               units: language === 'pt' ? "metric" : 'imperial',
               appid: KEY
