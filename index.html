@@ -16,6 +16,7 @@
         <div class="col-12 col-sm-2 offset-sm-9 mr-2">
           <label for="language"> Language: </label>
           <select v-on:change="onChange" class="form-control" name="language" id="language">
+            <option :value="null" disabled>None</option>
             <option value="en"> English</option>
             <option value="pt" selected> Português</option>
           </select>
