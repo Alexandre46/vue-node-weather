@@ -78,9 +78,10 @@
             </div>
             <div class="city-container">
               <h4> {{ $t("today") }}</h4>
+              <i> {{nowDatetime}}</i>
             </div>
 
-            <div class="row">
+            <div class="row ml-2 mr-2">
               <div class="col-12 col-sm-4">
                 <div class="mx-auto text-center justify-content-center">
                   <h2>{{city}} / {{country}}</h2>
@@ -89,7 +90,7 @@
                       <canvas id="icon1" width="128" height="128"></canvas>
                     </figure>
                     <br>
-                    <h3>{{temperature}} ºC</h3>
+                    <b>{{ $t("temperature-now")}} {{nowTemperature}} ºC</b>
                   </div>
                 </div>
               </div>
@@ -100,9 +101,16 @@
                 </div>
               </div>
               <div class="col-12 col-sm-4">
-                <h4> {{ $t("information")}} </h4> {{description}}
+                <h4> {{ $t("information")}} </h4>
+                <p>{{description}}</p>
+
                 <br><br>
-                <h4> {{ $t("additional-info") }} </h4> {{population}} {{ $t("population")}}
+                <h4> {{ $t("additional-info") }} </h4>
+                <p> {{ $t("day-summary")}}</p>
+                <i>{{daySummary}}</i>
+                <br><br>
+                <p> {{ $t("week-summary")}}</p>
+                <i>{{weekSummary}}</i>
               </div>
             </div>
 
@@ -112,31 +120,30 @@
             <br>
 
             <!-- Cards (all week) -->
-              <div class="row">
-                <div class="col">
+              <div class="row ml-2 mr-2">
                   <div class="card-deck">
-                    <div v-for="forecast in forecasts">
-                      <div class="card mb-3" style="max-width: 540px;">
-                        <div class="row no-gutters">
-                          <div class="col-md-4 mt-2 mx-auto">
-                            <img v-bind:src="forecast.icon" width="80" height="80"/>
-                          </div>
-                          <div class="col-md-8">
-                            <div class="card-body">
-                              <h5 class="card-title">{{ $t("datetime")}} {{forecast.dt_txt}}</h5>
-                              <p class="card-text"> {{ $t("min-temp")}}: {{forecast.main.temp_min}} ºC</p>
-                              <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.main.humidity}} %</p>
-                              <p class="card-text"> {{ $t("description")}}: {{forecast.weather[0].description}} </p>
-                              <p class="card-text">
-                                <small class="text-muted"> {{ $t("last-update")}}</small>
-                              </p>
+                    <div class="col col-sm-4" v-for="forecast in forecasts">
+                        <div class="card mb-3" style="max-width: 540px;">
+                          <div class="row no-gutters">
+                            <div class="col-md-4 mt-2">
+                              <img v-bind:src="forecast.icon" width="80" height="80"/>
+                            </div>
+                            <div class="col-md-8">
+                              <div class="card-body">
+                                <h5 class="card-title">{{ $t("datetime")}} {{forecast.dateTime}}</h5>
+                                <p class="card-text"> {{ $t("min-temp")}}: {{forecast.dailyTempMin}} ºC</p>
+                                <p class="card-text"> {{ $t("max-temp")}}: {{forecast.dailyTempMax}} ºC</p>
+                                <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.dailyHumidity}} %</p>
+                                <p class="card-text"> {{ $t("description")}}: {{forecast.dailySummary}} </p>
+                                <p class="card-text">
+                                  <small class="text-muted"> {{ $t("last-update")}}</small>
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
                     </div>
                   </div>
-                </div>
               </div>
 
 

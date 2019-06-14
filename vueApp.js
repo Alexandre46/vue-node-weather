@@ -1,7 +1,6 @@
 const API = "https://api.darksky.net/forecast/ecb011fa534de8867e6376f625f30a42";
 const KEY = "ecb011fa534de8867e6376f625f30a42";
 const hours = 8;
-const defaultLocale = 'pt';
 
 const languages = {
     en: {
@@ -15,10 +14,14 @@ const languages = {
       "24-hour-forecast": "24hour forecast for",
       "datetime": "Date & Time:",
       "min-temp": "Min. Temperature:",
+      "max-temp": "Max. Temperature:",
       "humidity": "Humidity",
       "description": "Description",
       "population" : "People",
       "last-update" : "Last update 1 minute ago",
+      "week-summary" : "Week forecast",
+      "day-summary" : "Day forecast",
+      "temperature-now" : "Now",
 
     },
     pt: {
@@ -32,12 +35,14 @@ const languages = {
       "24-hour-forecast" : "Previsão meteorológica 24 horas para",
       "datetime" : "Dia e hora:",
       "min-temp" : "Temperatura mínima:",
+      "max-temp" : "Temperatura máxima:",
       "humidity" : "Humidade:",
       "description" : "Descrição:",
       "population" : "Pessoas",
       "last-update" : "Ultima actualização há 1 min atrás",
-
-
+      "week-summary" : "Previsão semanal",
+      "day-summary" : "Previsão para hoje",
+      "temperature-now" : "Agora:",
     },
 };
 
@@ -69,9 +74,18 @@ var app = new Vue({
       loading: false,
       errored: false,
       description:'',
-      population: '',
       language: 'pt',
       forecasts: [],
+      nowDatetime: '',
+      weekSummary: '',
+      daySummary: '',
+      nowTemperature:'',
+      dailyDateTime: '',
+      dailySummary:'',
+      dailyHumidity:'',
+      dailyIcon:'',
+      dailyTempMin: '',
+      dailyTempMax: '',
     },
     currentLocale: 'pt',
     locales: [ {id: 'en', name: 'English'}, {id: 'pt', name: 'Portugues'}],
@@ -115,7 +129,8 @@ var app = new Vue({
                this.city = response.data.city;
                this.latitude = response.data.latitude;
                this.longitude = response.data.longitude;
-             return [this.latitude, this.longitude];
+               this.country = response.data.country_name;
+             return [this.latitude, this.longitude, this.country];
            })
         },
 
@@ -125,7 +140,6 @@ var app = new Vue({
         if (this.chart != null) {
           this.chart.destroy();
         }
-
           //city without country if exists comma
           //separated city by country
           if(this.city.indexOf(',') > -1){
@@ -137,7 +151,7 @@ var app = new Vue({
 
         axios({
           method: 'GET',
-          url: API+'/'+this.latitude+','+this.longitude,
+          url: 'https://cors-anywhere.herokuapp.com/'+API+'/'+this.latitude+','+this.longitude,
           params: {
             lang: locale(),
             cnt: hours,
@@ -146,138 +160,152 @@ var app = new Vue({
           }
         })
           .then(response => {
-            this.dates = response.data.list.map(list => {
-              return list.dt_txt;
+
+            console.log(response);
+
+            //weather info
+            this.nowDatetime = response.headers.date;
+            this.weekSummary = response.data.daily.summary;
+            this.daySummary = response.data.hourly.summary;
+            this.nowTemperature = response.data.currently.temperature;
+            this.maxTemperature  = response.data.daily.data[0].temperatureMax;
+            this.minTemperature = response.data.daily.data[0].temperatureMin;
+            this.humidity = (response.data.currently.humidity) * 100 + '%';
+            this.pressure  = response.data.currently.pressure;
+            this.wind = response.data.currently.windSpeed + 'm/s';
+
+            //description
+            this.description  = response.data.currently.summary;
+
+            this.dates = response.data.hourly.data.map(list => {
+              return list.time;
             });
 
-            this.temps = response.data.list.map(list => {
-              return list.main.temp;
+            this.temps = response.data.hourly.data.map(list => {
+              return list.temperature;
             });
 
-            this.forecasts = response.data.list.map(list => {
-              list.icon = "http://openweathermap.org/img/w/" + list.weather[0].icon + ".png";
+            this.forecasts = response.data.daily.data.map(list => {
+              list.dailyIcon = list.icon;
+              list.dailySummary = list.summary;
+              list.dailyHumidity = list.humidity;
+              list.dailyDateTime = timeConverter(list.time);
+              list.dailyTempMin = list.temperatureMin;
+              list.dailyTempMax = list.temperatureMax;
               return list;
             });
-
-          console.log(response.data);
-
-          //country
-          this.country          = response.data.city.country;
-          //weather info
-          this.temperature      = Math.round(response.data.list[0].main.temp);
-          this.maxTemperature   = response.data.list[0].main.temp_max;
-          this.minTemperature   = response.data.list[0].main.temp_min;
-          this.humidity         = response.data.list[0].main.humidity + '%';
-          this.pressure         = response.data.list[0].main.pressure;
-          this.wind             = response.data.list[0].wind.speed + 'm/s';
-          this.overcast         = response.data.list[0].weather[0].description;
-          //description
-          this.description      = response.data.list[0].weather[0].description;
-          //population
-          this.population       = response.data.city.population;
 
 
           //icons
           var icons = new Skycons({"color": "black"});
-          const currentWeather = response.data.list[0].weather[0].main;
+          const currentWeather = response.data.currently.icon;
           const currentWeatherDesc =   response.data.list[0].weather[0].description;
 
           //change background img
           ChangeBgImage(currentWeather);
 
-          if(currentWeather === 'Rain'){
+          if(currentWeather === 'rain'){
           icons.set("icon1", Skycons.RAIN);
           }
-          if(currentWeather === 'Clouds'){
-              icons.set("icon1", Skycons.CLOUDY);
+          if(currentWeather === 'partly-cloudy-day'){
+              icons.set("icon1", Skycons.PARTLY_CLOUD_DAY);
           }
-          if(currentWeather === 'Snow'){
+          if(currentWeather === 'partly-cloudy-night'){
+            icons.set("icon1", Skycons.PARTLY_CLOUD_NIGHT);
+          }
+          if(currentWeather === 'fog'){
+            icons.set("icon1", Skycons.FOG);
+          }
+          if(currentWeather === 'snow'){
               icons.set("icon1", Skycons.SNOW);
           }
-          if(currentWeather === 'Windy'){
+          if(currentWeather === 'wind'){
               icons.set("icon1", Skycons.WIND);
           }
-          if(currentWeather === 'Clear' || currentWeatherDesc === '%Clear%sky%'){
+          if(currentWeather === 'clear-day' || currentWeatherDesc === '%Clear%sky%'){
               icons.set("icon1", Skycons.CLEAR_DAY);
+          }
+          if(currentWeather === 'clear-night'){
+            icons.set("icon1", Skycons.CLEAR_NIGHT);
           }
 
           icons.play();
 
 
-            var ctx = document.getElementById("myChart");
-            this.chart = new Chart(ctx, {
-              type: "line",
-              data: {
-                labels: this.dates,
-                datasets: [
+          var ctx = document.getElementById("myChart");
+          this.chart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: this.dates,
+              datasets: [
+                {
+                  label: "Avg. Temp",
+                  backgroundColor: "rgba(54, 162, 235, 0.5)",
+                  borderColor: "rgb(54, 162, 235)",
+                  fill: false,
+                  data: this.temps
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Temperature graph"
+              },
+              tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    var label =
+                      data.datasets[tooltipItem.datasetIndex].label || "";
+
+                    if (label) {
+                      label += ": ";
+                    }
+
+                    label += Math.floor(tooltipItem.yLabel);
+                    return label + "°C";
+                  }
+                }
+              },
+              scales: {
+                xAxes: [
                   {
-                    label: "Avg. Temp",
-                    backgroundColor: "rgba(54, 162, 235, 0.5)",
-                    borderColor: "rgb(54, 162, 235)",
-                    fill: false,
-                    data: this.temps
+                    type: "time",
+                    time: {
+                      unit: "hour",
+                      displayFormats: {
+                        hour: "M/DD @ hA"
+                      },
+                      tooltipFormat: "MMM. DD @ hA"
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Date/Time"
+                    }
+                  }
+                ],
+                yAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Temperature (°C)"
+                    },
+                    ticks: {
+                      callback: function(value, index, values) {
+                        return value + "°C";
+                      }
+                    }
                   }
                 ]
-              },
-              options: {
-                title: {
-                  display: true,
-                  text: "Temperature graph"
-                },
-                tooltips: {
-                  callbacks: {
-                    label: function(tooltipItem, data) {
-                      var label =
-                        data.datasets[tooltipItem.datasetIndex].label || "";
-
-                      if (label) {
-                        label += ": ";
-                      }
-
-                      label += Math.floor(tooltipItem.yLabel);
-                      return label + "°C";
-                    }
-                  }
-                },
-                scales: {
-                  xAxes: [
-                    {
-                      type: "time",
-                      time: {
-                        unit: "hour",
-                        displayFormats: {
-                          hour: "M/DD @ hA"
-                        },
-                        tooltipFormat: "MMM. DD @ hA"
-                      },
-                      scaleLabel: {
-                        display: true,
-                        labelString: "Date/Time"
-                      }
-                    }
-                  ],
-                  yAxes: [
-                    {
-                      scaleLabel: {
-                        display: true,
-                        labelString: "Temperature (°C)"
-                      },
-                      ticks: {
-                        callback: function(value, index, values) {
-                          return value + "°C";
-                        }
-                      }
-                    }
-                  ]
-                }
               }
-            });
-          })
-          .catch(error => {
-            console.log(error);
-            this.error = true;
-          })
-          .finally(() => (this.loading = false));
+            }
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          this.error = true;
+        })
+        .finally(() => (this.loading = false));
       }
     }
   });
@@ -298,4 +326,17 @@ function refreshPage(){
 function locale() {
   const languageElement = document.getElementById('language');
   return languageElement.value;
+}
+
+
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
 }
