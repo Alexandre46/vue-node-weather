@@ -186,7 +186,7 @@ var app = new Vue({
             });
 
             this.forecasts = response.data.daily.data.map(list => {
-              list.dailyIcon = list.icon;
+              list.dailyIcon = 'https://darksky.net/images/weather-icons/'+list.icon+'.png';
               list.dailySummary = list.summary;
               list.dailyHumidity = list.humidity;
               list.dailyDateTime = timeConverter(list.time);
@@ -199,13 +199,12 @@ var app = new Vue({
           //icons
           var icons = new Skycons({"color": "black"});
           const currentWeather = response.data.currently.icon;
-          const currentWeatherDesc =   response.data.list[0].weather[0].description;
 
           //change background img
           ChangeBgImage(currentWeather);
 
           if(currentWeather === 'rain'){
-          icons.set("icon1", Skycons.RAIN);
+            icons.set("icon1", Skycons.RAIN);
           }
           if(currentWeather === 'partly-cloudy-day'){
               icons.set("icon1", Skycons.PARTLY_CLOUD_DAY);
@@ -222,7 +221,7 @@ var app = new Vue({
           if(currentWeather === 'wind'){
               icons.set("icon1", Skycons.WIND);
           }
-          if(currentWeather === 'clear-day' || currentWeatherDesc === '%Clear%sky%'){
+          if(currentWeather === 'clear-day'){
               icons.set("icon1", Skycons.CLEAR_DAY);
           }
           if(currentWeather === 'clear-night'){
