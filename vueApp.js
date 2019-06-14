@@ -1,7 +1,6 @@
-const API = "https://api.openweathermap.org/data/2.5/forecast";
-const KEY = "88d2151398a5960afd2b42a1bb914c39";
+const API = "https://api.darksky.net/forecast/ecb011fa534de8867e6376f625f30a42";
+const KEY = "ecb011fa534de8867e6376f625f30a42";
 const hours = 8;
-
 const defaultLocale = 'pt';
 
 const languages = {
@@ -114,9 +113,9 @@ var app = new Vue({
            }).then( response =>{
              console.log(response.data);
                this.city = response.data.city;
-               this.country = response.data.country;
-             this.postal = response.postal;
-             return [this.city, this.postal];
+               this.latitude = response.data.latitude;
+               this.longitude = response.data.longitude;
+             return [this.latitude, this.longitude];
            })
         },
 
@@ -136,16 +135,16 @@ var app = new Vue({
               this.country = onlyCity[1];
           }
 
-        axios
-          .get(API, {
-            params: {
-              q: this.city+','+this.country,
-              lang: locale(),
-              cnt: hours,
-              units: language === 'pt' ? "metric" : 'imperial',
-              appid: KEY
-            }
-          })
+        axios({
+          method: 'GET',
+          url: API+'/'+this.latitude+','+this.longitude,
+          params: {
+            lang: locale(),
+            cnt: hours,
+            units: language === 'pt' ? "ca" : 'us',
+            appid: KEY
+          }
+        })
           .then(response => {
             this.dates = response.data.list.map(list => {
               return list.dt_txt;
