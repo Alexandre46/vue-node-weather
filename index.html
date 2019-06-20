@@ -64,7 +64,7 @@
                   </button>
                 </div>
               </div>
-              <p class="text-center"><i> {{ $t("detect-info")}}</i></p>
+              <p class="text-center"><i class="data-text"> {{ $t("detect-info")}}</i></p>
             </div>
           </div>
         </form>
@@ -77,36 +77,36 @@
               {{ $t("loading")}}...
             </div>
             <div class="city-container">
-              <h4> {{ $t("today") }}</h4>
-              <i> {{nowDatetime}}</i>
+              <h4 class="data-text"> {{ $t("today") }}</h4>
+              <i class="data-text"> {{nowDatetime}}</i>
             </div>
             <div class="row">
               <div class="col-12 col-sm-4">
-                <div class="text-center justify-content-center">
-                  <h2>{{city}} / {{country}}</h2>
+                <div class="text-center justify-content-center data-text">
+                  <h2 class="data-text">{{city}} / {{country}}</h2>
                   <div class="m-2">
                     <figure class="icons">
                       <canvas id="icon1" width="128" height="128"></canvas>
                     </figure>
                     <br>
-                    <b>{{ $t("temperature-now")}} {{nowTemperature}} ºC</b>
+                    <b class="data-text">{{ $t("temperature-now")}} {{nowTemperature}} ºC</b>
                   </div>
                 </div>
               </div>
               <div class="col-12 col-sm-4">
                 <div class="text-center">
-                  <p><img src="./images/Thermometer-100.svg"/> Máx: {{maxTemperature}} ºC</p>
-                  <p><img src="./images/Thermometer-Zero.svg"/> Min: {{minTemperature}} ºC</p>
+                  <p><img src="./images/Thermometer-100.svg"/> <span class="data-text">Máx: {{maxTemperature}} ºC</span></p>
+                  <p><img src="./images/Thermometer-Zero.svg"/> <span class="data-text">Min: {{minTemperature}} ºC</span></p>
                 </div>
               </div>
               <div class="col-12 col-sm-4">
                 <div class="text-center">
-                  <h4> {{ $t("information")}} </h4>
-                  <p>{{description}}</p>
+                  <h4 class="data-text"> {{ $t("information")}} </h4>
+                  <p class="data-text">{{description}}</p>
                   <br><br>
-                  <h4> {{ $t("additional-info") }} </h4>
-                  <p> {{ $t("day-summary")}}</p>
-                  <i>{{daySummary}}</i>
+                  <h4 class="data-text"> {{ $t("additional-info") }} </h4>
+                  <p class="data-text"> {{ $t("day-summary")}}</p>
+                  <i class="data-text">{{daySummary}}</i>
                 </div>
 
               </div>
@@ -114,11 +114,11 @@
             <br>
             <br>
 
-            <h4> {{ $t("8-day-forecast") }} {{city}}</h4>
+            <h4 class="data-text"> {{ $t("8-day-forecast") }} {{city}}</h4>
 
             <br>
-            <p class="text-center"> {{ $t("week-summary")}}</p>
-            <i>{{weekSummary}}</i>
+            <p class="text-center data-text"> {{ $t("week-summary")}}</p>
+            <i class="data-text">{{weekSummary}}</i>
 
             <!-- Cards (all week) -->
               <div class="row ml-2 mr-2">

@@ -67,10 +67,6 @@ figure {
   background-color: rgba(211, 211, 211, 0.3);*/
 }
 
-.app::after {
-  opacity: 0.4;
-}
-
 .button-for-submit{
   border-color:black;
 }
@@ -81,4 +77,11 @@ figure {
   background-color: whitesmoke;
   background-position: center;
   opacity: 0.8
+}
+
+.data-text {
+  color: black;
+  -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
 }
