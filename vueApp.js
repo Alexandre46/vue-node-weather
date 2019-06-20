@@ -1,6 +1,8 @@
 const API = "https://api.darksky.net/forecast/ecb011fa534de8867e6376f625f30a42";
 const KEY = "ecb011fa534de8867e6376f625f30a42";
 const hours = 8;
+const photoApiKey = "251dde3fd50b67a0fb365c394983cb4a83db666d0c3b8faddadcac37b514a3aa";
+
 
 const languages = {
     en: {
@@ -12,7 +14,8 @@ const languages = {
       "information": "Information",
       "additional-info": "Additional info",
       "24-hour-forecast": "24hour forecast for",
-      "datetime": "Date & Time:",
+      "8-day-forecast" : "Week forecast for",
+      "datetime": "Date:",
       "min-temp": "Min. Temperature:",
       "max-temp": "Max. Temperature:",
       "humidity": "Humidity",
@@ -33,7 +36,8 @@ const languages = {
       "information" :  "Informação",
       "additional-info" : "Informação adicional",
       "24-hour-forecast" : "Previsão meteorológica 24 horas para",
-      "datetime" : "Dia e hora:",
+      "8-day-forecast" : "Previsão semanal para",
+      "datetime" : "Data:",
       "min-temp" : "Temperatura mínima:",
       "max-temp" : "Temperatura máxima:",
       "humidity" : "Humidade:",
@@ -123,15 +127,14 @@ var app = new Vue({
 
         getCity(){
            axios.get('https://ipapi.co/json/',{
-
-           }).then( response =>{
+        }).then( response =>{
              console.log(response.data);
                this.city = response.data.city;
                this.latitude = response.data.latitude;
                this.longitude = response.data.longitude;
                this.country = response.data.country_name;
              return [this.latitude, this.longitude, this.country];
-           })
+         })
         },
 
       getData: function() {
@@ -195,13 +198,30 @@ var app = new Vue({
               return list;
             });
 
+            const currentWeather = response.data.currently.icon;
+
+          //axios unsplash api photo
+          axios({
+              method: 'GET',
+              url: 'https://api.unsplash.com/search/photos/?query='+currentWeather+',nature&client_id='+photoApiKey,
+          })
+          .then( response => {
+              console.log(response);
+              var imgUrl= '';
+              if (currentWeather !== 'clear-night') {
+                  imgUrl = response.data.results[0].urls.full;
+              } else {
+                  imgUrl = response.data.results[8].urls.full; //due to person img
+              }
+              //change background img
+              ChangeBgImage(imgUrl);
+          })
+          .catch(err => {
+              console.log('Error happened during fetching!', err);
+          });
 
           //icons
           var icons = new Skycons({"color": "black"});
-          const currentWeather = response.data.currently.icon;
-
-          //change background img
-          ChangeBgImage(currentWeather);
 
           if(currentWeather === 'rain'){
             icons.set("icon1", Skycons.RAIN);
@@ -311,9 +331,10 @@ var app = new Vue({
 
 
 //Change div app background img pending on weather
-function ChangeBgImage(currentWeather) {
-    document.getElementById('app').style.backgroundImage =  'url(images/' + currentWeather + '.png)';
-    document.getElementById('app').style.backgroundPosition = 'center';
+function ChangeBgImage(imgUrl) {
+    document.getElementById('app').style.backgroundImage =  'url('+imgUrl+')';
+    document.getElementById('app').style.backgroundPosition = 'center center';
+    document.getElementById('app').style.backgroundSize = 'cover';
     document.getElementById('app').style.backgroundRepeat = 'no-repeat';
     document.getElementById('app').style.overflow = 'hidden';
 }
@@ -334,8 +355,9 @@ function timeConverter(UNIX_timestamp){
     var year = a.getFullYear();
     var month = months[a.getMonth()];
     var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    return date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    var hour = (a.getHours() !== 0) ? a.getHours() : null;
+    var min = (a.getMinutes() !== 0) ? a.getMinutes() : null;
+    var sec = (a.getSeconds() !== 0) ? a.getSeconds() : null;
+    var finalTime = (hour !== null && min !== null && sec !== null) ? hour + ':' + min + ':' + sec : '';
+    return date + ' ' + month + ' ' + year + ' ' + finalTime ;
 }
