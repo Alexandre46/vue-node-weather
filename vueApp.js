@@ -1,8 +1,8 @@
-const API = "https://api.openweathermap.org/data/2.5/forecast";
-const KEY = "88d2151398a5960afd2b42a1bb914c39";
+const API = "https://api.darksky.net/forecast/ecb011fa534de8867e6376f625f30a42";
+const KEY = "ecb011fa534de8867e6376f625f30a42";
 const hours = 8;
+const photoApiKey = "251dde3fd50b67a0fb365c394983cb4a83db666d0c3b8faddadcac37b514a3aa";
 
-const defaultLocale = 'pt';
 
 const languages = {
     en: {
@@ -14,12 +14,17 @@ const languages = {
       "information": "Information",
       "additional-info": "Additional info",
       "24-hour-forecast": "24hour forecast for",
-      "datetime": "Date & Time:",
+      "8-day-forecast" : "Week forecast for",
+      "datetime": "Date:",
       "min-temp": "Min. Temperature:",
+      "max-temp": "Max. Temperature:",
       "humidity": "Humidity",
       "description": "Description",
       "population" : "People",
       "last-update" : "Last update 1 minute ago",
+      "week-summary" : "Week forecast",
+      "day-summary" : "Day forecast",
+      "temperature-now" : "Now",
 
     },
     pt: {
@@ -31,14 +36,17 @@ const languages = {
       "information" :  "Informação",
       "additional-info" : "Informação adicional",
       "24-hour-forecast" : "Previsão meteorológica 24 horas para",
-      "datetime" : "Dia e hora:",
+      "8-day-forecast" : "Previsão semanal para",
+      "datetime" : "Data:",
       "min-temp" : "Temperatura mínima:",
+      "max-temp" : "Temperatura máxima:",
       "humidity" : "Humidade:",
       "description" : "Descrição:",
       "population" : "Pessoas",
       "last-update" : "Ultima actualização há 1 min atrás",
-
-
+      "week-summary" : "Previsão semanal",
+      "day-summary" : "Previsão para hoje",
+      "temperature-now" : "Agora:",
     },
 };
 
@@ -70,9 +78,18 @@ var app = new Vue({
       loading: false,
       errored: false,
       description:'',
-      population: '',
       language: 'pt',
       forecasts: [],
+      nowDatetime: '',
+      weekSummary: '',
+      daySummary: '',
+      nowTemperature:'',
+      dailyDateTime: '',
+      dailySummary:'',
+      dailyHumidity:'',
+      dailyIcon:'',
+      dailyTempMin: '',
+      dailyTempMax: '',
     },
     currentLocale: 'pt',
     locales: [ {id: 'en', name: 'English'}, {id: 'pt', name: 'Portugues'}],
@@ -110,14 +127,14 @@ var app = new Vue({
 
         getCity(){
            axios.get('https://ipapi.co/json/',{
-
-           }).then( response =>{
+        }).then( response =>{
              console.log(response.data);
                this.city = response.data.city;
-               this.country = response.data.country;
-             this.postal = response.postal;
-             return [this.city, this.postal];
-           })
+               this.latitude = response.data.latitude;
+               this.longitude = response.data.longitude;
+               this.country = response.data.country_name;
+             return [this.latitude, this.longitude, this.country];
+         })
         },
 
       getData: function() {
@@ -126,7 +143,6 @@ var app = new Vue({
         if (this.chart != null) {
           this.chart.destroy();
         }
-
           //city without country if exists comma
           //separated city by country
           if(this.city.indexOf(',') > -1){
@@ -136,158 +152,189 @@ var app = new Vue({
               this.country = onlyCity[1];
           }
 
-        axios
-          .get(API, {
-            params: {
-              q: this.city+','+this.country,
-              lang: locale(),
-              cnt: hours,
-              units: language === 'pt' ? "metric" : 'imperial',
-              appid: KEY
-            }
-          })
+        axios({
+          method: 'GET',
+          url: 'https://cors-anywhere.herokuapp.com/'+API+'/'+this.latitude+','+this.longitude,
+          params: {
+            lang: locale(),
+            cnt: hours,
+            units: language === 'pt' ? "ca" : 'us',
+            appid: KEY
+          }
+        })
           .then(response => {
-            this.dates = response.data.list.map(list => {
-              return list.dt_txt;
+
+            console.log(response);
+
+            //weather info
+            this.nowDatetime = response.headers.date;
+            this.weekSummary = response.data.daily.summary;
+            this.daySummary = response.data.hourly.summary;
+            this.nowTemperature = response.data.currently.temperature;
+            this.maxTemperature  = response.data.daily.data[0].temperatureMax;
+            this.minTemperature = response.data.daily.data[0].temperatureMin;
+            this.humidity = (response.data.currently.humidity) * 100 + '%';
+            this.pressure  = response.data.currently.pressure;
+            this.wind = response.data.currently.windSpeed + 'm/s';
+
+            //description
+            this.description  = response.data.currently.summary;
+
+            this.dates = response.data.hourly.data.map(list => {
+              return list.time;
             });
 
-            this.temps = response.data.list.map(list => {
-              return list.main.temp;
+            this.temps = response.data.hourly.data.map(list => {
+              return list.temperature;
             });
 
-            this.forecasts = response.data.list.map(list => {
-              list.icon = "http://openweathermap.org/img/w/" + list.weather[0].icon + ".png";
+            this.forecasts = response.data.daily.data.map(list => {
+              list.dailyIcon = 'https://darksky.net/images/weather-icons/'+list.icon+'.png';
+              list.dailySummary = list.summary;
+              list.dailyHumidity = list.humidity;
+              list.dailyDateTime = timeConverter(list.time);
+              list.dailyTempMin = list.temperatureMin;
+              list.dailyTempMax = list.temperatureMax;
               return list;
             });
 
-          console.log(response.data);
+            const currentWeather = response.data.currently.icon;
 
-          //country
-          this.country          = response.data.city.country;
-          //weather info
-          this.temperature      = Math.round(response.data.list[0].main.temp);
-          this.maxTemperature   = response.data.list[0].main.temp_max;
-          this.minTemperature   = response.data.list[0].main.temp_min;
-          this.humidity         = response.data.list[0].main.humidity + '%';
-          this.pressure         = response.data.list[0].main.pressure;
-          this.wind             = response.data.list[0].wind.speed + 'm/s';
-          this.overcast         = response.data.list[0].weather[0].description;
-          //description
-          this.description      = response.data.list[0].weather[0].description;
-          //population
-          this.population       = response.data.city.population;
-
+          //axios unsplash api photo
+          axios({
+              method: 'GET',
+              url: 'https://api.unsplash.com/search/photos/?query='+currentWeather+',nature&client_id='+photoApiKey,
+          })
+          .then( response => {
+              console.log(response);
+              var imgUrl= '';
+              if (currentWeather !== 'clear-night') {
+                  imgUrl = response.data.results[0].urls.full;
+              } else {
+                  imgUrl = response.data.results[8].urls.full; //due to person img
+              }
+              //change background img
+              ChangeBgImage(imgUrl);
+          })
+          .catch(err => {
+              console.log('Error happened during fetching!', err);
+          });
 
           //icons
           var icons = new Skycons({"color": "black"});
-          const currentWeather = response.data.list[0].weather[0].main;
-          const currentWeatherDesc =   response.data.list[0].weather[0].description;
 
-          //change background img
-          ChangeBgImage(currentWeather);
-
-          if(currentWeather === 'Rain'){
-          icons.set("icon1", Skycons.RAIN);
+          if(currentWeather === 'rain'){
+            icons.set("icon1", Skycons.RAIN);
           }
-          if(currentWeather === 'Clouds'){
-              icons.set("icon1", Skycons.CLOUDY);
+          if(currentWeather === 'partly-cloudy-day'){
+              icons.set("icon1", Skycons.PARTLY_CLOUD_DAY);
           }
-          if(currentWeather === 'Snow'){
+          if(currentWeather === 'partly-cloudy-night'){
+            icons.set("icon1", Skycons.PARTLY_CLOUD_NIGHT);
+          }
+          if(currentWeather === 'fog'){
+            icons.set("icon1", Skycons.FOG);
+          }
+          if(currentWeather === 'snow'){
               icons.set("icon1", Skycons.SNOW);
           }
-          if(currentWeather === 'Windy'){
+          if(currentWeather === 'wind'){
               icons.set("icon1", Skycons.WIND);
           }
-          if(currentWeather === 'Clear' || currentWeatherDesc === '%Clear%sky%'){
+          if(currentWeather === 'clear-day'){
               icons.set("icon1", Skycons.CLEAR_DAY);
+          }
+          if(currentWeather === 'clear-night'){
+            icons.set("icon1", Skycons.CLEAR_NIGHT);
           }
 
           icons.play();
 
 
-            var ctx = document.getElementById("myChart");
-            this.chart = new Chart(ctx, {
-              type: "line",
-              data: {
-                labels: this.dates,
-                datasets: [
+          var ctx = document.getElementById("myChart");
+          this.chart = new Chart(ctx, {
+            type: "line",
+            data: {
+              labels: this.dates,
+              datasets: [
+                {
+                  label: "Avg. Temp",
+                  backgroundColor: "rgba(54, 162, 235, 0.5)",
+                  borderColor: "rgb(54, 162, 235)",
+                  fill: false,
+                  data: this.temps
+                }
+              ]
+            },
+            options: {
+              title: {
+                display: true,
+                text: "Temperature graph"
+              },
+              tooltips: {
+                callbacks: {
+                  label: function(tooltipItem, data) {
+                    var label =
+                      data.datasets[tooltipItem.datasetIndex].label || "";
+
+                    if (label) {
+                      label += ": ";
+                    }
+
+                    label += Math.floor(tooltipItem.yLabel);
+                    return label + "°C";
+                  }
+                }
+              },
+              scales: {
+                xAxes: [
                   {
-                    label: "Avg. Temp",
-                    backgroundColor: "rgba(54, 162, 235, 0.5)",
-                    borderColor: "rgb(54, 162, 235)",
-                    fill: false,
-                    data: this.temps
+                    type: "time",
+                    time: {
+                      unit: "hour",
+                      displayFormats: {
+                        hour: "M/DD @ hA"
+                      },
+                      tooltipFormat: "MMM. DD @ hA"
+                    },
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Date/Time"
+                    }
+                  }
+                ],
+                yAxes: [
+                  {
+                    scaleLabel: {
+                      display: true,
+                      labelString: "Temperature (°C)"
+                    },
+                    ticks: {
+                      callback: function(value, index, values) {
+                        return value + "°C";
+                      }
+                    }
                   }
                 ]
-              },
-              options: {
-                title: {
-                  display: true,
-                  text: "Temperature graph"
-                },
-                tooltips: {
-                  callbacks: {
-                    label: function(tooltipItem, data) {
-                      var label =
-                        data.datasets[tooltipItem.datasetIndex].label || "";
-
-                      if (label) {
-                        label += ": ";
-                      }
-
-                      label += Math.floor(tooltipItem.yLabel);
-                      return label + "°C";
-                    }
-                  }
-                },
-                scales: {
-                  xAxes: [
-                    {
-                      type: "time",
-                      time: {
-                        unit: "hour",
-                        displayFormats: {
-                          hour: "M/DD @ hA"
-                        },
-                        tooltipFormat: "MMM. DD @ hA"
-                      },
-                      scaleLabel: {
-                        display: true,
-                        labelString: "Date/Time"
-                      }
-                    }
-                  ],
-                  yAxes: [
-                    {
-                      scaleLabel: {
-                        display: true,
-                        labelString: "Temperature (°C)"
-                      },
-                      ticks: {
-                        callback: function(value, index, values) {
-                          return value + "°C";
-                        }
-                      }
-                    }
-                  ]
-                }
               }
-            });
-          })
-          .catch(error => {
-            console.log(error);
-            this.error = true;
-          })
-          .finally(() => (this.loading = false));
+            }
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          this.error = true;
+        })
+        .finally(() => (this.loading = false));
       }
     }
   });
 
 
 //Change div app background img pending on weather
-function ChangeBgImage(currentWeather) {
-    document.getElementById('app').style.backgroundImage =  'url(images/' + currentWeather + '.png)';
-    document.getElementById('app').style.backgroundPosition = 'center';
+function ChangeBgImage(imgUrl) {
+    document.getElementById('app').style.backgroundImage =  'url('+imgUrl+')';
+    document.getElementById('app').style.backgroundPosition = 'center center';
+    document.getElementById('app').style.backgroundSize = 'cover';
     document.getElementById('app').style.backgroundRepeat = 'no-repeat';
     document.getElementById('app').style.overflow = 'hidden';
 }
@@ -299,4 +346,18 @@ function refreshPage(){
 function locale() {
   const languageElement = document.getElementById('language');
   return languageElement.value;
+}
+
+
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = (a.getHours() !== 0) ? a.getHours() : null;
+    var min = (a.getMinutes() !== 0) ? a.getMinutes() : null;
+    var sec = (a.getSeconds() !== 0) ? a.getSeconds() : null;
+    var finalTime = (hour !== null && min !== null && sec !== null) ? hour + ':' + min + ':' + sec : '';
+    return date + ' ' + month + ' ' + year + ' ' + finalTime ;
 }
