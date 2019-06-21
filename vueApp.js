@@ -205,11 +205,11 @@ var app = new Vue({
           //Unsplash Photo API
           axios({
               method: 'GET',
-              url: 'https://api.unsplash.com/search/photos/?query='+this.city+','+this.country+'&client_id='+photoApiKey,
+              url: 'https://api.unsplash.com/photos/random/?query='+this.city+','+this.country+',city&client_id='+photoApiKey,
           })
           .then( response => {
               console.log(response);
-              const imgUrl = response.data.results[0].urls.full;
+              const imgUrl = response.data.urls.full;
               //change background img
               ChangeBgImage(imgUrl);
           })
@@ -224,10 +224,10 @@ var app = new Vue({
             icons.set("icon1", Skycons.RAIN);
           }
           if(currentWeather === 'partly-cloudy-day'){
-              icons.set("icon1", Skycons.PARTLY_CLOUD_DAY);
+              icons.set("icon1", Skycons.PARTLY_CLOUDY_DAY);
           }
           if(currentWeather === 'partly-cloudy-night'){
-            icons.set("icon1", Skycons.PARTLY_CLOUD_NIGHT);
+            icons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
           }
           if(currentWeather === 'fog'){
             icons.set("icon1", Skycons.FOG);
