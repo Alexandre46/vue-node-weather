@@ -61,10 +61,8 @@ figure {
   height: 100px;
 }
 
-.app{
+#app{
   overflow-x: hidden;
-  /* I’m taking lightgrey for the background, here
-  background-color: rgba(211, 211, 211, 0.3);*/
 }
 
 .button-for-submit{
@@ -72,11 +70,11 @@ figure {
 }
 
 .graph {
-  width: 80%;
+  width: 100%;
   text-align:center;
   background-color: whitesmoke;
   background-position: center;
-  opacity: 0.8
+  opacity: 0.5
 }
 
 .data-text {
@@ -84,4 +82,8 @@ figure {
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
   -webkit-text-stroke-width: 0.5px;
   -webkit-text-stroke-color: black;
+}
+
+#city-info {
+  height: 30rem;
 }

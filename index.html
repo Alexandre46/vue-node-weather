@@ -32,7 +32,7 @@
     <!-- ****** faviconit.com favicons ****** -->
   </head>
   <body>
-    <div id="app" class="full-container">
+    <div id="app" class="full-container bg-dark">
       <div class="row">
         <div class="col-12 col-sm-2 offset-sm-9 mr-2">
           <label for="language"> Language: </label>
@@ -80,7 +80,7 @@
               <h4 class="data-text"> {{ $t("today") }}</h4>
               <i class="data-text"> {{nowDatetime}}</i>
             </div>
-            <div class="row">
+            <div class="row m-3 py-4" id="city-info">
               <div class="col-12 col-sm-4">
                 <div class="text-center justify-content-center data-text">
                   <h2 class="data-text">{{city}} / {{country}}</h2>
@@ -151,16 +151,27 @@
             <div class="row graph-header">
               <div class="col">
                 <div class="mt-3 pt-1">
-                  <img class="icon" src="images/humidity.svg"> {{humidity}}
-                  <img class="icon" src="images/pressure.svg"> {{pressure}}
-                  <img class="icon" src="images/wind.svg"> {{wind}}
+                  <img class="icon" src="images/humidity.svg">
+                    <span class="data-text">
+                      {{humidity}}
+                    </span>
+                  <img class="icon" src="images/pressure.svg">
+                    <span class="data-text">
+                      {{pressure}}
+                    </span>
+                  <img class="icon" src="images/wind.svg">
+                    <span class="data-text">
+                      {{wind}}
+                    </span>
                 </div>
               </div>
             </div>
 
-            <div class="mt-3 graph">
-              <div v-show="chart != null">
-                <canvas id="myChart"></canvas>
+            <div class="row">
+              <div class="graph mt-3">
+                <div v-show="chart != null">
+                  <canvas id="myChart"></canvas>
+                </div>
               </div>
             </div>
 
