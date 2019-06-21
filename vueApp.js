@@ -126,6 +126,7 @@ var app = new Vue({
       },
 
         getCity(){
+          // Geolocation API
            axios.get('https://ipapi.co/json/',{
         }).then( response =>{
              console.log(response.data);
@@ -152,6 +153,7 @@ var app = new Vue({
               this.country = onlyCity[1];
           }
 
+        // dark sky api
         axios({
           method: 'GET',
           url: 'https://cors-anywhere.herokuapp.com/'+API+'/'+this.latitude+','+this.longitude,
@@ -200,19 +202,14 @@ var app = new Vue({
 
             const currentWeather = response.data.currently.icon;
 
-          //axios unsplash api photo
+          //Unsplash Photo API
           axios({
               method: 'GET',
-              url: 'https://api.unsplash.com/search/photos/?query='+currentWeather+',nature&client_id='+photoApiKey,
+              url: 'https://api.unsplash.com/photos/random/?query='+this.city+','+this.country+',city&client_id='+photoApiKey,
           })
           .then( response => {
               console.log(response);
-              var imgUrl= '';
-              if (currentWeather !== 'clear-night') {
-                  imgUrl = response.data.results[0].urls.full;
-              } else {
-                  imgUrl = response.data.results[8].urls.full; //due to person img
-              }
+              const imgUrl = response.data.urls.full;
               //change background img
               ChangeBgImage(imgUrl);
           })
@@ -227,10 +224,10 @@ var app = new Vue({
             icons.set("icon1", Skycons.RAIN);
           }
           if(currentWeather === 'partly-cloudy-day'){
-              icons.set("icon1", Skycons.PARTLY_CLOUD_DAY);
+              icons.set("icon1", Skycons.PARTLY_CLOUDY_DAY);
           }
           if(currentWeather === 'partly-cloudy-night'){
-            icons.set("icon1", Skycons.PARTLY_CLOUD_NIGHT);
+            icons.set("icon1", Skycons.PARTLY_CLOUDY_NIGHT);
           }
           if(currentWeather === 'fog'){
             icons.set("icon1", Skycons.FOG);
@@ -332,11 +329,14 @@ var app = new Vue({
 
 //Change div app background img pending on weather
 function ChangeBgImage(imgUrl) {
-    document.getElementById('app').style.backgroundImage =  'url('+imgUrl+')';
-    document.getElementById('app').style.backgroundPosition = 'center center';
-    document.getElementById('app').style.backgroundSize = 'cover';
-    document.getElementById('app').style.backgroundRepeat = 'no-repeat';
-    document.getElementById('app').style.overflow = 'hidden';
+    const divElement = document.getElementById('city-info');
+    if (divElement) {
+        divElement.style.backgroundImage =  'url('+imgUrl+')';
+        divElement.style.backgroundPosition = 'center center';
+        divElement.style.backgroundSize = 'cover';
+        divElement.style.backgroundRepeat = 'no-repeat';
+        divElement.style.overflow = 'hidden';
+    }
 }
 
 function refreshPage(){
