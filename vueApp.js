@@ -327,11 +327,11 @@ var app = new Vue({
   });
 
 
-//Change div app background img pending on weather
+//Change div app background img pending on city/country
 function ChangeBgImage(imgUrl) {
     const divElement = document.getElementById('city-info');
     if (divElement) {
-        divElement.style.backgroundImage =  'url('+imgUrl+')';
+        divElement.style.backgroundImage =  'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('+imgUrl+')';
         divElement.style.backgroundPosition = 'center center';
         divElement.style.backgroundSize = 'cover';
         divElement.style.backgroundRepeat = 'no-repeat';

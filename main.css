@@ -84,6 +84,13 @@ figure {
   -webkit-text-stroke-color: black;
 }
 
-#city-info {
-  height: 30rem;
+.city-container {
+  z-index: 1;
 }
+
+.city-container#city-info {
+  height: 30rem;
+  z-index: -1;
+  opacity: .2;
+}
+
