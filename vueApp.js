@@ -327,7 +327,7 @@ var app = new Vue({
   });
 
 
-//Change div app background img pending on weather
+//Change div app background img pending on city/country
 function ChangeBgImage(imgUrl) {
     const divElement = document.getElementById('city-info');
     if (divElement) {

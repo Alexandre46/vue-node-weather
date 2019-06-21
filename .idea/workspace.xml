@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52ce3a3e-02a8-4ccc-a7ce-a57521072cc6" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/vueApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/vueApp.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -48,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vueApp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="333" column="108" selection-start-line="333" selection-start-column="108" selection-end-line="333" selection-end-column="108" />
+            <state relative-caret-position="223">
+              <caret line="329" column="55" selection-start-line="329" selection-start-column="55" selection-end-line="329" selection-end-column="55" />
               <folding>
                 <element signature="e#175#964#0" />
                 <element signature="e#974#1877#0" />
@@ -183,12 +180,12 @@
       <workItem from="1560286594977" duration="11154000" />
       <workItem from="1560463371192" duration="270000" />
       <workItem from="1560931815681" duration="13000" />
-      <workItem from="1561060541129" duration="8306000" />
+      <workItem from="1561060541129" duration="8437000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53327000" />
+    <option name="totallyTimeSpent" value="53458000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -378,8 +375,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vueApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="333" column="108" selection-start-line="333" selection-start-column="108" selection-end-line="333" selection-end-column="108" />
+        <state relative-caret-position="223">
+          <caret line="329" column="55" selection-start-line="329" selection-start-column="55" selection-end-line="329" selection-end-column="55" />
           <folding>
             <element signature="e#175#964#0" />
             <element signature="e#974#1877#0" />
