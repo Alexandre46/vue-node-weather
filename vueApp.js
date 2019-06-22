@@ -25,6 +25,8 @@ const languages = {
       "week-summary" : "Week forecast",
       "day-summary" : "Day forecast",
       "temperature-now" : "Now",
+      "pressure": "Pressure",
+        "wind": "Wind",
 
     },
     pt: {
@@ -47,6 +49,8 @@ const languages = {
       "week-summary" : "Previsão semanal",
       "day-summary" : "Previsão para hoje",
       "temperature-now" : "Agora:",
+        "pressure": "Pressão",
+        "wind": "Vento",
     },
 };
 
@@ -90,6 +94,9 @@ var app = new Vue({
       dailyIcon:'',
       dailyTempMin: '',
       dailyTempMax: '',
+      uvIndex: '',
+      tempFeelsLike:'',
+      rainProb: '',
     },
     currentLocale: 'pt',
     locales: [ {id: 'en', name: 'English'}, {id: 'pt', name: 'Portugues'}],
@@ -199,6 +206,12 @@ var app = new Vue({
               list.dailyTempMax = list.temperatureMax;
               return list;
             });
+
+            this.uvIndex = response.data.currently.uvIndex;
+
+            this.tempFeelsLike = response.data.currently.apparentTemperature;
+
+            this.rainProb = response.data.currently.precipProbability;
 
             const currentWeather = response.data.currently.icon;
 
@@ -331,11 +344,12 @@ var app = new Vue({
 function ChangeBgImage(imgUrl) {
     const divElement = document.getElementById('city-info');
     if (divElement) {
-        divElement.style.backgroundImage =  'linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url('+imgUrl+')';
+        divElement.style.backgroundImage =  'linear-gradient(to bottom,rgba(255,255,255,0.3), rgba(255,255,255,0.2)), url('+imgUrl+')';
         divElement.style.backgroundPosition = 'center center';
         divElement.style.backgroundSize = 'cover';
         divElement.style.backgroundRepeat = 'no-repeat';
         divElement.style.overflow = 'hidden';
+        divElement.style.boxShadow='5px 5px 0px 0px white';
     }
 }
 
