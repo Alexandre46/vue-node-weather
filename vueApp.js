@@ -231,7 +231,7 @@ var app = new Vue({
           });
 
           //icons
-          var icons = new Skycons({"color": "black"});
+          var icons = new Skycons({"color": "white"});
 
           if(currentWeather === 'rain'){
             icons.set("icon1", Skycons.RAIN);
@@ -348,8 +348,6 @@ function ChangeBgImage(imgUrl) {
         divElement.style.backgroundPosition = 'center center';
         divElement.style.backgroundSize = 'cover';
         divElement.style.backgroundRepeat = 'no-repeat';
-        divElement.style.overflow = 'hidden';
-        divElement.style.boxShadow='5px 5px 0px 0px white';
     }
 }
 

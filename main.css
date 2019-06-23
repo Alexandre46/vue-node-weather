@@ -83,12 +83,37 @@ figure {
   -webkit-text-stroke-width: 0.33px;
 }
 
+.data-text-photo {
+  color: white;
+  -webkit-text-fill-color: black; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 1px;
+}
+
 .location-box {
   z-index: 1;
 }
 
-.location-box#city-info {
-  height: 30rem;
-  z-index: -1;
+@media (max-width:767px) {
+  #city-info {
+    height: 20rem;
+  }
+}
+@media (min-width:768px) {
+  #city-info {
+    height: 30rem;
+  }
 }
 
+@media(max-width: 767px) {
+  .info-icons {
+    width: 40px;
+    height: auto;
+  }
+}
+
+@media(min-width: 768px) {
+  .info-icons {
+    width: 80px;
+    height: auto;
+  }
+}
