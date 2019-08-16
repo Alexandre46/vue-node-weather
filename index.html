@@ -33,9 +33,11 @@
   </head>
   <body>
     <div id="app" class="full-container bg-dark">
-      <div class="row">
-        <div class="col-12 col-sm-2 offset-sm-9 mr-2">
-          <label class="text-white" for="language"> Language: </label>
+      <div class="row px-3 py-3">
+        <div class="col-6 col-sm-3 my-auto">
+          <button class="btn btn-info" id="btnTrigger"> Show location form</button>
+        </div>
+        <div class="col-6 col-sm-3 offset-sm-6 my-auto">
           <select v-on:change="onChange" class="form-control" name="language" id="language">
             <option :value="null" disabled>None</option>
             <option value="en"> English</option>
@@ -43,7 +45,7 @@
           </select>
         </div>
       </div>
-      <div class="my-5">
+      <div class="my-5 d-none" id="locationInput">
         <form v-on:submit.prevent="getData">
           <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -150,30 +152,28 @@
               </div>
             </div>
             <div class="row">
-                  <div class="card-deck">
-                    <div class="col col-sm-6 col-md-4 col-lg-3" v-for="forecast in forecasts">
-                        <div class="card mb-3">
-                          <div class="row no-gutters">
-                            <div class="col-md-4 mt-2">
-                              <img v-bind:src="forecast.dailyIcon" width="80" height="80"/>
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">{{forecast.dailyDateTime}}</h5>
-                                <p class="card-text"> {{ $t("min-temp")}}: {{forecast.dailyTempMin}} ºC</p>
-                                <p class="card-text"> {{ $t("max-temp")}}: {{forecast.dailyTempMax}} ºC</p>
-                                <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.dailyHumidity}} %</p>
-                                <p class="card-text"> {{ $t("description")}}: {{forecast.dailySummary}} </p>
-                                <p class="card-text">
-                                  <small class="text-muted"> {{ $t("last-update")}}</small>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+              <div class="col-12 col-lg-3 my-2" v-for="forecast in forecasts">
+                  <div class="card mb-3 h-100">
+                    <div class="row no-gutters">
+                      <div class="col-md-4 mt-2">
+                        <img v-bind:src="forecast.dailyIcon" width="80" height="80"/>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{forecast.dailyDateTime}}</h5>
+                          <p class="card-text"> {{ $t("min-temp")}}: {{forecast.dailyTempMin}} ºC</p>
+                          <p class="card-text"> {{ $t("max-temp")}}: {{forecast.dailyTempMax}} ºC</p>
+                          <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.dailyHumidity}} %</p>
+                          <p class="card-text"> {{ $t("description")}}: {{forecast.dailySummary}} </p>
+                          <p class="card-text">
+                            <small class="text-muted"> {{ $t("last-update")}}</small>
+                          </p>
                         </div>
+                      </div>
                     </div>
                   </div>
               </div>
+            </div>
             <div class="row">
               <div class="col graph-header">
                 <div class="mt-3 pt-1">
@@ -225,5 +225,7 @@
     <script src="index.js"></script>
     <!-- animated icons for weather-->
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <!-- Custom script to custom location fornm -->
+    <script src="assets/js/showFormLocation.js"></script>
   </body>
 </html>
