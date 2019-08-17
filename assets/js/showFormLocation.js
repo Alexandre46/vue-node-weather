@@ -1,7 +1,10 @@
 const inputLocation = document.getElementById('locationInput');
 const btnTrigger = document.getElementById('btnTrigger');
-const btnTextShow = 'Show custom location';
-const btnTextHide = 'Hide custom location';
+
+const languageElement = document.getElementById('language');
+const languageSelected = languageElement.options[languageElement.selectedIndex].value;
+const btnTextShow = languageSelected === 'pt' ? 'Pesquisa manual' : 'Manual search';
+const btnTextHide = languageSelected === 'pt' ? 'Esconder pesquisa manual' : 'Hide manual search';
 
 if (btnTrigger) {
     btnTrigger.addEventListener('click', () => {

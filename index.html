@@ -35,7 +35,7 @@
     <div id="app" class="full-container bg-dark">
       <div class="row px-3 py-3">
         <div class="col-6 col-sm-3 my-auto">
-          <button class="btn btn-info" id="btnTrigger"> Show location form</button>
+          <button class="btn btn-info" id="btnTrigger"> {{ $t("manual-search")}}</button>
         </div>
         <div class="col-6 col-sm-3 offset-sm-6 my-auto">
           <select v-on:change="onChange" class="form-control" name="language" id="language">
@@ -81,31 +81,49 @@
               </div>
             </div>
             <div class="row">
-              <div class="city-container">
+              <div class="col-2">
                 <h4 class="data-text"> {{ $t("today") }}</h4>
+              </div>
+              <div class="col-10">
                 <i class="data-text"> {{nowDatetime}}</i>
               </div>
             </div>
-            <div class="row" id="city-info">
-              <div class="photo-information py-auto my-auto">
-                <div class="text-center data-text">
-                  <div class="col-12 text-div">
-                    <h2 class="data-text-photo">{{city}}</h2>
-                  </div>
-                  <div class="col-12 text-div">
-                    <h3 class="data-text-photo">{{country}}</h3>
-                  </div>
-                  <div class="m-2">
-                    <figure class="icons">
-                      <canvas id="icon1" width="100" height="100"></canvas>
-                    </figure>
-                    <br>
-                    <h2 class="data-text-photo">{{nowTemperature}} ºC</h2>
-                    <span class="data-text-photo"> Feels like: {{tempFeelsLike}} ºC</span>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-sm-8" id="city-info">&nbsp;</div>
+                <div class="col-12 col-sm-4 my-auto">
+                  <div class="photo-information py-auto my-auto">
+                    <div class="text-center data-text">
+                      <div class="row">
+                        <div class="col-12">
+                          <h1 class="data-text-photo">{{city}} /</h1>
+                          <h4 class="data-text-photo">{{country}}</h4>
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-6">
+                            <span class="icons">
+                              <canvas id="icon1" width="150" height="150"></canvas>
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h1 class="data-text-photo">{{nowTemperature}} ºC</h1>
+                          </div>
+                          <div class="col-12 mt-5 pt-3">
+                            <span class="data-text-photo"> Feels like: {{tempFeelsLike}} ºC</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+
+
             <div class="row">
               <div class="col-12 col-sm-6">
                 <div class="row">
@@ -161,10 +179,10 @@
                       <div class="col-md-8">
                         <div class="card-body">
                           <h5 class="card-title">{{forecast.dailyDateTime}}</h5>
-                          <p class="card-text"> {{ $t("min-temp")}}: {{forecast.dailyTempMin}} ºC</p>
-                          <p class="card-text"> {{ $t("max-temp")}}: {{forecast.dailyTempMax}} ºC</p>
-                          <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.dailyHumidity}} %</p>
-                          <p class="card-text"> {{ $t("description")}}: {{forecast.dailySummary}} </p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("min-temp")}} </span>{{forecast.dailyTempMin}} ºC</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("max-temp")}}</span> {{forecast.dailyTempMax}} ºC</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("humidity")}} </span>~ {{forecast.dailyHumidity}} %</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("description")}}</span> {{forecast.dailySummary}} </p>
                           <p class="card-text">
                             <small class="text-muted"> {{ $t("last-update")}}</small>
                           </p>
