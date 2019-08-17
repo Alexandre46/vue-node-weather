@@ -177,13 +177,15 @@ var app = new Vue({
         })
           .then(response => {
             //weather info
+              console.log('DarkSkyAPi Response->',response);
+
             this.nowDatetime = response.headers.date;
             this.weekSummary = response.data.daily.summary;
             this.daySummary = response.data.hourly.summary;
             this.nowTemperature = response.data.currently.temperature;
             this.maxTemperature  = response.data.daily.data[0].temperatureMax;
             this.minTemperature = response.data.daily.data[0].temperatureMin;
-            this.humidity = (response.data.currently.humidity) * 100 + '%';
+            this.humidity = Math.floor(response.data.currently.humidity * 100) + '%';
             this.pressure  = response.data.currently.pressure;
             this.wind = response.data.currently.windSpeed + 'm/s';
 
