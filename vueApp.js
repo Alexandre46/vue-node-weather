@@ -28,6 +28,7 @@ const languages = {
       "pressure": "Pressure",
       "wind": "Wind",
       "manual-search" : "Manual search",
+        "developed-by" : "Developed by:",
 
     },
     pt: {
@@ -53,6 +54,7 @@ const languages = {
       "pressure": "Pressão",
       "wind": "Vento",
       "manual-search" : "Pesquisa manual",
+        "developed-by" : "Desenvolvido por:",
     },
 };
 

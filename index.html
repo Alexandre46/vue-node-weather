@@ -33,11 +33,11 @@
   </head>
   <body>
     <div id="app" class="full-container bg-dark">
-      <div class="row px-3 py-3">
-        <div class="col-6 col-sm-3 my-auto">
+      <div class="row px-1 py-3">
+        <div class="col-7 col-sm-3 my-auto">
           <button class="btn btn-info" id="btnTrigger"> {{ $t("manual-search")}}</button>
         </div>
-        <div class="col-6 col-sm-3 offset-sm-6 my-auto">
+        <div class="col-5 pl-0 col-sm-3 offset-sm-6 my-auto">
           <select v-on:change="onChange" class="form-control" name="language" id="language">
             <option :value="null" disabled>None</option>
             <option value="en"> English</option>
@@ -72,20 +72,12 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <div class="location-box m-3">
+          <div class="location-box mx-1">
             <div class="row">
               <div class="col">
                 <div class="alert alert-warning" v-show="loading">
                   {{ $t("loading")}}...
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-2">
-                <h4 class="data-text"> {{ $t("today") }}</h4>
-              </div>
-              <div class="col-10">
-                <i class="data-text"> {{nowDatetime}}</i>
               </div>
             </div>
 
@@ -96,22 +88,42 @@
                   <div class="photo-information py-auto my-auto">
                     <div class="text-center data-text">
                       <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 d-inline-block d-flex">
                           <h1 class="data-text-photo">{{city}} /</h1>
-                          <h4 class="data-text-photo">{{country}}</h4>
+                          <h3 class="data-text-photo my-auto">{{country}}</h3>
                         </div>
                       </div>
                       <div class="container">
                         <div class="row">
-                          <div class="col-6">
-                            <span class="icons">
-                              <canvas id="icon1" width="150" height="150"></canvas>
-                            </span>
+
+                          <div class="col-5">
+                            <span class="icons"><canvas id="icon1" width="120" height="90"></canvas></span>
                           </div>
-                          <div class="col-6">
-                            <h1 class="data-text-photo">{{nowTemperature}} ºC</h1>
+
+                          <div class="col-7 my-auto">
+                            <h3 class="data-text-photo">{{nowTemperature}} ºC</h3>
                           </div>
-                          <div class="col-12 mt-5 pt-3">
+
+                          <div class="col-12">
+                            <img src="./images/Thermometer-100.svg" class="info-icons"/>
+                            <span class="data-text-photo">Máx: {{maxTemperature}} ºC</span>
+                          </div>
+
+                          <div class="col-12">
+                            <img src="./images/Thermometer-Zero.svg" class="info-icons"/>
+                            <span class="data-text-photo">Min: {{minTemperature}} ºC</span>
+                          </div>
+
+                          <div class="col-12">
+                            <img src="./images/01.svg" class="info-icons"/>
+                            <span class="data-text-photo font-weight-bold"> UV Index: {{uvIndex}} </span>
+                          </div>
+
+                          <div class="col-12">
+                            <span class="data-text-photo font-weight-bold"> % Rain: {{rainProb}} ºC</span>
+                          </div>
+
+                          <div class="col-12">
                             <span class="data-text-photo"> Feels like: {{tempFeelsLike}} ºC</span>
                           </div>
                         </div>
@@ -123,44 +135,17 @@
               </div>
             </div>
 
-
-            <div class="row">
-              <div class="col-12 col-sm-6">
-                <div class="row">
-                  <div class="col-6 d-inline-block px-0 py-0">
-                    <img src="./images/Thermometer-100.svg" class="info-icons"/>
-                    <span class="data-text-photo">Máx: {{maxTemperature}} ºC</span>
-                  </div>
-                  <div class="col-6 d-inline-block px-0 py-0">
-                    <img src="./images/Thermometer-Zero.svg" class="info-icons"/>
-                    <span class="data-text-photo">Min: {{minTemperature}} ºC</span>
-                  </div>
-                </div>
+            <div class="row mt-2">
+              <div class="col-12">
+                <h4 class="data-text-photo font-weight-bold"> {{ $t("information")}} </h4>
+                <p class="data-text-photo font-weight-light">{{description}}</p>
               </div>
-              <div class="col-12 col-sm-6">
-                <div class="row">
-                  <div class="col-6 d-inline-block px-0 py-auto">
-                    <img src="./images/01.svg" class="info-icons"/>
-                    <span class="data-text-photo font-weight-bold"> UV Index: {{uvIndex}} </span>
-                  </div>
-                  <div class="col-6 d-inline-block px-0 py-auto d-flex justify-content-center align-items-center">
-                    <span class="data-text-photo font-weight-bold"> % Rain: {{rainProb}} ºC</span>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12 mt-4">
-                <div class="row">
-                  <div class="col-12 col-sm-6">
-                    <h4 class="data-text-photo font-weight-bold"> {{ $t("information")}} </h4>
-                    <p class="data-text-photo font-weight-light">{{description}}</p>
-                  </div>
-                  <div class="col-12 col-sm-6">
-                    <h4 class="data-text-photo font-weight-bold"> {{ $t("day-summary")}}</h4>
-                    <i class="data-text-photo font-weight-light">{{daySummary}}</i>
-                  </div>
-                </div>
+              <div class="col-12">
+                <h4 class="data-text-photo font-weight-bold"> {{ $t("day-summary")}}</h4>
+                <i class="data-text-photo font-weight-light">{{daySummary}}</i>
               </div>
             </div>
+
             <div class="row">
               <div class="col-12 mt-4">
                 <div class="mb-4">
@@ -170,7 +155,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12 col-lg-3 my-2" v-for="forecast in forecasts">
+              <div class="col-12 col-lg-4 my-2" v-for="forecast in forecasts">
                   <div class="card mb-3 h-100">
                     <div class="row no-gutters">
                       <div class="col-md-4 mt-2">
@@ -193,29 +178,25 @@
               </div>
             </div>
             <div class="row">
-              <div class="col graph-header">
+              <div class="col-12 graph-header">
                 <div class="mt-3 pt-1">
-                  <img class="icon" src="images/humidity.svg">
-                    <span class="data-text font-weight-bold">
-                      {{ $t("humidity")}}
-                    </span>
-                  <span class="data-text font-weight-light">
-                     {{humidity}}
-                  </span>
-                  <img class="icon" src="images/pressure.svg">
-                  <span class="data-text font-weight-bold">
-                    {{ $t("pressure")}}
-                  </span>
-                    <span class="data-text font-weight-light">
-                      {{pressure}}
-                    </span>
-                  <img class="icon" src="images/wind.svg">
-                    <span class="data-text font-weight-bold">
-                      {{ $t("wind")}}
-                    </span>
-                    <span class="data-text font-weight-light">
-                      {{wind}}
-                    </span>
+                  <div class="row">
+                    <div class="col-12 col-sm-4">
+                      <img class="icon" src="images/humidity.svg">
+                      <span class="data-text font-weight-bold">{{ $t("humidity")}}</span>
+                      <span class="data-text font-weight-light">{{humidity}}</span>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <img class="icon" src="images/pressure.svg">
+                      <span class="data-text font-weight-bold">{{ $t("pressure")}}</span>
+                      <span class="data-text font-weight-light">{{pressure}}</span>
+                    </div>
+                    <div class="col-12 col-sm-4">
+                      <img class="icon" src="images/wind.svg">
+                      <span class="data-text font-weight-bold">{{ $t("wind")}}</span>
+                      <span class="data-text font-weight-light">{{wind}}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -230,6 +211,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="footer mt-3 text-center bg-white">
+        <span>{{ $t("developed-by")}}<b> Alexandre Abreu</b> 2019</span>
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
