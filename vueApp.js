@@ -26,7 +26,8 @@ const languages = {
       "day-summary" : "Day forecast",
       "temperature-now" : "Now",
       "pressure": "Pressure",
-        "wind": "Wind",
+      "wind": "Wind",
+      "manual-search" : "Manual search",
 
     },
     pt: {
@@ -49,8 +50,9 @@ const languages = {
       "week-summary" : "Previsão semanal",
       "day-summary" : "Previsão para hoje",
       "temperature-now" : "Agora:",
-        "pressure": "Pressão",
-        "wind": "Vento",
+      "pressure": "Pressão",
+      "wind": "Vento",
+      "manual-search" : "Pesquisa manual",
     },
 };
 
@@ -119,7 +121,7 @@ var app = new Vue({
     },
     methods: {
       onChange: function(){
-        i18n.locale = locale()
+        i18n.locale = locale();
         this.getData()
       },
       getLanguage() {
@@ -172,9 +174,6 @@ var app = new Vue({
           }
         })
           .then(response => {
-
-            console.log(response);
-
             //weather info
             this.nowDatetime = response.headers.date;
             this.weekSummary = response.data.daily.summary;
@@ -208,11 +207,8 @@ var app = new Vue({
             });
 
             this.uvIndex = response.data.currently.uvIndex;
-
             this.tempFeelsLike = response.data.currently.apparentTemperature;
-
             this.rainProb = response.data.currently.precipProbability;
-
             const currentWeather = response.data.currently.icon;
 
           //Unsplash Photo API
@@ -221,9 +217,7 @@ var app = new Vue({
               url: 'https://api.unsplash.com/photos/random/?query='+this.city+','+this.country+',city&client_id='+photoApiKey,
           })
           .then( response => {
-              console.log(response);
               const imgUrl = response.data.urls.full;
-              //change background img
               ChangeBgImage(imgUrl);
           })
           .catch(err => {
@@ -231,7 +225,7 @@ var app = new Vue({
           });
 
           //icons
-          var icons = new Skycons({"color": "black"});
+          var icons = new Skycons({"color": "white"});
 
           if(currentWeather === 'rain'){
             icons.set("icon1", Skycons.RAIN);
@@ -331,7 +325,6 @@ var app = new Vue({
           });
         })
         .catch(error => {
-          console.log(error);
           this.error = true;
         })
         .finally(() => (this.loading = false));
@@ -348,8 +341,6 @@ function ChangeBgImage(imgUrl) {
         divElement.style.backgroundPosition = 'center center';
         divElement.style.backgroundSize = 'cover';
         divElement.style.backgroundRepeat = 'no-repeat';
-        divElement.style.overflow = 'hidden';
-        divElement.style.boxShadow='5px 5px 0px 0px white';
     }
 }
 

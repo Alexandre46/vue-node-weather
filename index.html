@@ -33,9 +33,11 @@
   </head>
   <body>
     <div id="app" class="full-container bg-dark">
-      <div class="row">
-        <div class="col-12 col-sm-2 offset-sm-9 mr-2">
-          <label class="text-white" for="language"> Language: </label>
+      <div class="row px-3 py-3">
+        <div class="col-6 col-sm-3 my-auto">
+          <button class="btn btn-info" id="btnTrigger"> {{ $t("manual-search")}}</button>
+        </div>
+        <div class="col-6 col-sm-3 offset-sm-6 my-auto">
           <select v-on:change="onChange" class="form-control" name="language" id="language">
             <option :value="null" disabled>None</option>
             <option value="en"> English</option>
@@ -43,8 +45,7 @@
           </select>
         </div>
       </div>
-
-      <div class="my-5">
+      <div class="my-5 d-none" id="locationInput">
         <form v-on:submit.prevent="getData">
           <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -54,7 +55,7 @@
                        placeholder="City,Country code (eg: Dublin,IE)"
                        v-model="city">
                 <div class="input-group-append">
-                  <button class="btn btn-dark" type="submit"> {{ $t("submit")}}</button>
+                  <button class="btn btn-light button-for-submit" type="submit"> {{ $t("submit")}}</button>
                 </div>
               </div>
               <div class="row">
@@ -69,92 +70,130 @@
           </div>
         </form>
       </div>
-
       <div class="row">
         <div class="col-12">
-          <div class="location-box">
-            <div class="alert alert-warning" v-show="loading">
-              {{ $t("loading")}}...
+          <div class="location-box m-3">
+            <div class="row">
+              <div class="col">
+                <div class="alert alert-warning" v-show="loading">
+                  {{ $t("loading")}}...
+                </div>
+              </div>
             </div>
-            <div class="city-container m-3">
-              <h4 class="data-text"> {{ $t("today") }}</h4>
-              <i class="data-text"> {{nowDatetime}}</i>
+            <div class="row">
+              <div class="col-2">
+                <h4 class="data-text"> {{ $t("today") }}</h4>
+              </div>
+              <div class="col-10">
+                <i class="data-text"> {{nowDatetime}}</i>
+              </div>
             </div>
-            <div class="row m-3 py-4" id="city-info">
-              <div class="col-12 col-sm-4 my-auto">
-                <div class="text-center data-text">
-                  <h1 class="data-text">{{city}} / {{country}}</h1>
-                  <div class="m-2">
-                    <figure class="icons">
-                      <canvas id="icon1" width="128" height="128"></canvas>
-                    </figure>
-                    <br>
-                    <b class="data-text h3">{{ $t("temperature-now")}} {{nowTemperature}} ºC</b>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 col-sm-8" id="city-info">&nbsp;</div>
+                <div class="col-12 col-sm-4 my-auto">
+                  <div class="photo-information py-auto my-auto">
+                    <div class="text-center data-text">
+                      <div class="row">
+                        <div class="col-12">
+                          <h1 class="data-text-photo">{{city}} /</h1>
+                          <h4 class="data-text-photo">{{country}}</h4>
+                        </div>
+                      </div>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-6">
+                            <span class="icons">
+                              <canvas id="icon1" width="150" height="150"></canvas>
+                            </span>
+                          </div>
+                          <div class="col-6">
+                            <h1 class="data-text-photo">{{nowTemperature}} ºC</h1>
+                          </div>
+                          <div class="col-12 mt-5 pt-3">
+                            <span class="data-text-photo"> Feels like: {{tempFeelsLike}} ºC</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-12 col-sm-4 my-auto">
-                <div class="text-center">
-                  <p><img src="./images/Thermometer-100.svg"/> <span class="data-text h4">Máx: {{maxTemperature}} ºC</span></p>
-                  <p><img src="./images/Thermometer-Zero.svg"/> <span class="data-text h4">Min: {{minTemperature}} ºC</span></p>
-                </div>
-                <div class="text-center font-weight-light">
-                  <p><img src="./images/01.svg"/> <span class="data-text h4"> UV Index: {{uvIndex}} </span></p>
-                  <p><span class="data-text h4"> Feels like: {{tempFeelsLike}} ºC</span></p>
-                  <p><span class="data-text h4"> % Rain: {{rainProb}} ºC</span></p>
-                </div>
-              </div>
-              <div class="col-12 col-sm-4 my-auto">
-                <div class="text-center">
-                  <h4 class="data-text font-weight-bold"> {{ $t("information")}} </h4>
-                  <p class="data-text font-weight-light">{{description}}</p>
-                  <br><br>
-                  <h4 class="data-text font-weight-bold"> {{ $t("day-summary")}}</h4>
-                  <i class="data-text font-weight-light">{{daySummary}}</i>
-                </div>
-              </div>
             </div>
-            <br>
-            <br>
+
 
             <div class="row">
-              <div class="px-4 mx-3 mb-5">
-                <h4 class="data-text"> {{ $t("8-day-forecast") }} {{city}}</h4>
-                <br>
-                <i class="data-text font-italic">{{weekSummary}}</i>
+              <div class="col-12 col-sm-6">
+                <div class="row">
+                  <div class="col-6 d-inline-block px-0 py-0">
+                    <img src="./images/Thermometer-100.svg" class="info-icons"/>
+                    <span class="data-text-photo">Máx: {{maxTemperature}} ºC</span>
+                  </div>
+                  <div class="col-6 d-inline-block px-0 py-0">
+                    <img src="./images/Thermometer-Zero.svg" class="info-icons"/>
+                    <span class="data-text-photo">Min: {{minTemperature}} ºC</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <div class="row">
+                  <div class="col-6 d-inline-block px-0 py-auto">
+                    <img src="./images/01.svg" class="info-icons"/>
+                    <span class="data-text-photo font-weight-bold"> UV Index: {{uvIndex}} </span>
+                  </div>
+                  <div class="col-6 d-inline-block px-0 py-auto d-flex justify-content-center align-items-center">
+                    <span class="data-text-photo font-weight-bold"> % Rain: {{rainProb}} ºC</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-4">
+                <div class="row">
+                  <div class="col-12 col-sm-6">
+                    <h4 class="data-text-photo font-weight-bold"> {{ $t("information")}} </h4>
+                    <p class="data-text-photo font-weight-light">{{description}}</p>
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <h4 class="data-text-photo font-weight-bold"> {{ $t("day-summary")}}</h4>
+                    <i class="data-text-photo font-weight-light">{{daySummary}}</i>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <!-- Cards (all week) -->
-              <div class="row m-2">
-                  <div class="card-deck">
-                    <div class="col col-sm-6" v-for="forecast in forecasts">
-                        <div class="card mb-3" style="max-width: 540px;">
-                          <div class="row no-gutters">
-                            <div class="col-md-4 mt-2">
-                              <img v-bind:src="forecast.dailyIcon" width="80" height="80"/>
-                            </div>
-                            <div class="col-md-8">
-                              <div class="card-body">
-                                <h5 class="card-title">{{ $t("datetime")}} {{forecast.dailyDateTime}}</h5>
-                                <p class="card-text"> {{ $t("min-temp")}}: {{forecast.dailyTempMin}} ºC</p>
-                                <p class="card-text"> {{ $t("max-temp")}}: {{forecast.dailyTempMax}} ºC</p>
-                                <p class="card-text"> {{ $t("humidity")}}: ~ {{forecast.dailyHumidity}} %</p>
-                                <p class="card-text"> {{ $t("description")}}: {{forecast.dailySummary}} </p>
-                                <p class="card-text">
-                                  <small class="text-muted"> {{ $t("last-update")}}</small>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+            <div class="row">
+              <div class="col-12 mt-4">
+                <div class="mb-4">
+                  <h4 class="data-text"> {{ $t("8-day-forecast") }} {{city}}</h4>
+                  <i class="data-text font-italic">{{weekSummary}}</i>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-lg-3 my-2" v-for="forecast in forecasts">
+                  <div class="card mb-3 h-100">
+                    <div class="row no-gutters">
+                      <div class="col-md-4 mt-2">
+                        <img v-bind:src="forecast.dailyIcon" width="80" height="80"/>
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{forecast.dailyDateTime}}</h5>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("min-temp")}} </span>{{forecast.dailyTempMin}} ºC</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("max-temp")}}</span> {{forecast.dailyTempMax}} ºC</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("humidity")}} </span>~ {{forecast.dailyHumidity}} %</p>
+                          <p class="card-text"> <span class="font-weight-bold">{{ $t("description")}}</span> {{forecast.dailySummary}} </p>
+                          <p class="card-text">
+                            <small class="text-muted"> {{ $t("last-update")}}</small>
+                          </p>
                         </div>
+                      </div>
                     </div>
                   </div>
               </div>
-
-
-            <div class="row graph-header">
-              <div class="col">
+            </div>
+            <div class="row">
+              <div class="col graph-header">
                 <div class="mt-3 pt-1">
                   <img class="icon" src="images/humidity.svg">
                     <span class="data-text font-weight-bold">
@@ -180,15 +219,15 @@
                 </div>
               </div>
             </div>
-
-            <div class="row">
-              <div class="graph mt-3">
-                <div v-show="chart != null">
-                  <canvas id="myChart"></canvas>
-                </div>
-              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mt-3">
+          <div class="graph">
+            <div v-show="chart != null">
+              <canvas id="myChart"></canvas>
             </div>
-
           </div>
         </div>
       </div>
@@ -204,5 +243,7 @@
     <script src="index.js"></script>
     <!-- animated icons for weather-->
     <script src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <!-- Custom script to custom location fornm -->
+    <script src="assets/js/showFormLocation.js"></script>
   </body>
 </html>
