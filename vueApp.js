@@ -221,8 +221,10 @@ var app = new Vue({
               url: 'https://api.unsplash.com/photos/random/?query='+this.city+','+this.country+',city&client_id='+photoApiKey,
           })
           .then( response => {
+              console.log('UnsplashedAPi'+JSON.stringify(response));
               const imgUrl = response.data.urls.full;
               ChangeBgImage(imgUrl);
+              addRefeerBgImage(response);
           })
           .catch(err => {
               console.log('Error happened during fetching!', err);
@@ -346,6 +348,13 @@ function ChangeBgImage(imgUrl) {
         divElement.style.backgroundSize = 'cover';
         divElement.style.backgroundRepeat = 'no-repeat';
     }
+}
+
+//add user refeerence to unsplashed API
+function addRefeerBgImage(response) {
+   const unsplashedElement = document.querySelector('.unsplash-refeer');
+   const anchorRefeer = unsplashedElement.querySelector('.unsplashed-refeer-anchor');
+   anchorRefeer.setAttribute('href',response.data.user.links.html+'?utm_source=vue_weather_app&utm_medium=referral')
 }
 
 function refreshPage(){
