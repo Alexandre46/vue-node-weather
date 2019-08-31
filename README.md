@@ -2,7 +2,6 @@
 
 *Under construction*
 
-*Changelog*
 * Weather API: ~~openWeatherAPI~~ -> **DarkSkyAPI**
 * requests with AXIOS
 * chartJs for display graph with last forecast
