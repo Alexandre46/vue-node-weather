@@ -83,20 +83,15 @@
 
             <div class="container-fluid">
               <div class="row">
-                <div class="col-12 col-sm-8" id="city-info">
-                  <div class="bottom d-inline-block">
-                    <span class="unsplash-refeer">
-                      Photo by <a href="#" class="unsplashed-refeer-anchor"></a> on <a href="https://unsplash.com/?utm_source=vue_weather_app&utm_medium=referral">Unsplash</a>
-                    </span>
-                  </div>
-                </div>
-                <div class="col-12 col-sm-4 my-auto">
+                <div class="col-12 col-sm-4 my-auto mx-auto">
                   <div class="photo-information py-auto my-auto">
                     <div class="text-center data-text">
-                      <div class="row">
-                        <div class="col-12 d-inline-block d-flex">
-                          <h1 class="data-text-photo">{{city}} /</h1>
-                          <h3 class="data-text-photo my-auto">{{country}}</h3>
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-12">
+                            <h1 class="data-text-photo">{{city}} / </h1>
+                            <h4 class="data-text-photo my-auto"> {{country}}</h4>
+                          </div>
                         </div>
                       </div>
                       <div class="container">
@@ -110,32 +105,32 @@
                             <h3 class="data-text-photo">{{nowTemperature}} ºC</h3>
                           </div>
 
-                          <div class="col-12">
-                            <img src="./images/Thermometer-100.svg" class="info-icons"/>
-                            <span class="data-text-photo">Máx: {{maxTemperature}} ºC</span>
-                          </div>
-
-                          <div class="col-12">
-                            <img src="./images/Thermometer-Zero.svg" class="info-icons"/>
-                            <span class="data-text-photo">Min: {{minTemperature}} ºC</span>
-                          </div>
-
-                          <div class="col-12">
-                            <img src="./images/01.svg" class="info-icons"/>
-                            <span class="data-text-photo font-weight-bold"> UV Index: {{uvIndex}} </span>
-                          </div>
-
-                          <div class="col-12">
-                            <span class="data-text-photo font-weight-bold"> % Rain: {{rainProb}} % </span>
-                          </div>
-
-                          <div class="col-12">
-                            <span class="data-text-photo"> Feels like: {{tempFeelsLike}} ºC</span>
+                          <div class="col-12 my-3">
+                            <div class="row">
+                              <div class="col-6">
+                                <img src="./images/thermometer.png" class="info-icons"/>
+                              </div>
+                              <div class="col-6">
+                                <div class="row">
+                                  <span class="data-text-photo font-weight-bold"> MÁX: {{maxTemperature}} ºC</span>
+                                </div>
+                                <div class="row">
+                                  <span class="data-text-photo font-weight-bold"> MIN: {{minTemperature}} ºC</span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
 
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-8" id="city-info">
+                  <div class="bottom d-inline-block">
+                    <span class="unsplash-refeer">
+                      Photo by <a href="#" class="unsplashed-refeer-anchor"></a> on <a href="https://unsplash.com/?utm_source=vue_weather_app&utm_medium=referral">Unsplash</a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -145,8 +140,19 @@
               <div class="col-12">
                 <h4 class="data-text-photo font-weight-bold"> {{ $t("information")}} </h4>
                 <p class="data-text-photo font-weight-light">{{description}}</p>
+                <div class="row">
+                  <div class="col-12">
+                    <span class="data-text-photo font-weight-bold"> {{$t("uv-index")}}: {{uvIndex}} </span>
+                  </div>
+                  <div class="col-12">
+                    <span class="data-text-photo font-weight-bold"> {{$t("rain-prob")}}: {{rainProb}} % </span>
+                  </div>
+                  <div class="col-12">
+                    <span class="data-text-photo"> {{$t("feels-like")}}: {{tempFeelsLike}} ºC</span>
+                  </div>
+                </div>
               </div>
-              <div class="col-12">
+              <div class="col-12 my-3 pt-2">
                 <h4 class="data-text-photo font-weight-bold"> {{ $t("day-summary")}}</h4>
                 <i class="data-text-photo font-weight-light">{{daySummary}}</i>
               </div>

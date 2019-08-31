@@ -28,7 +28,10 @@ const languages = {
       "pressure": "Pressure",
       "wind": "Wind",
       "manual-search" : "Manual search",
-        "developed-by" : "Developed by:",
+      "developed-by" : "Developed by:",
+      "uv-index" : "UV Index",
+      "rain-prob" : "Rain %",
+      "feels-like" : "Feels like",
 
     },
     pt: {
@@ -54,7 +57,10 @@ const languages = {
       "pressure": "Pressão",
       "wind": "Vento",
       "manual-search" : "Pesquisa manual",
-        "developed-by" : "Desenvolvido por:",
+      "developed-by" : "Desenvolvido por:",
+      "uv-index" : "Índice UV",
+      "rain-prob" : "% chuva",
+      "feels-like" : "Sente-se como",
     },
 };
 
@@ -215,20 +221,41 @@ var app = new Vue({
             this.rainProb = response.data.currently.precipProbability;
             const currentWeather = response.data.currently.icon;
 
-          //Unsplash Photo API
+          //Unsplash
+          let imgDownload = '';
+
           axios({
               method: 'GET',
               url: 'https://api.unsplash.com/photos/random/?query='+this.city+','+this.country+',city&client_id='+photoApiKey,
           })
           .then( response => {
+              console.log(response);
               console.log('UnsplashedAPi'+JSON.stringify(response));
               const imgUrl = response.data.urls.full;
+              imgDownload = response.data.links.download_location;
               ChangeBgImage(imgUrl);
               addRefeerBgImage(response);
+          })
+          .then(() => {
+              downloadTrigger();
           })
           .catch(err => {
               console.log('Error happened during fetching!', err);
           });
+
+          function downloadTrigger() {
+              // Unsplash Photo trigger download
+              axios({
+                  method: 'GET',
+                  url: imgDownload+'?client_id='+photoApiKey,
+              })
+              .then( response => {
+                  console.log('SUCCESS DOWNLOAD', response)
+              })
+              .catch(err => {
+                  console.log('Error happened during download img Unsplash API', err);
+              });
+          }
 
           //icons
           var icons = new Skycons({"color": "white"});
@@ -354,7 +381,9 @@ function ChangeBgImage(imgUrl) {
 function addRefeerBgImage(response) {
    const unsplashedElement = document.querySelector('.unsplash-refeer');
    const anchorRefeer = unsplashedElement.querySelector('.unsplashed-refeer-anchor');
-   anchorRefeer.setAttribute('href',response.data.user.links.html+'?utm_source=vue_weather_app&utm_medium=referral')
+   const author = response.data.user.name;
+   anchorRefeer.setAttribute('href',response.data.user.links.html+'?utm_source=vue_weather_app&utm_medium=referral');
+   anchorRefeer.innerHTML = author;
 }
 
 function refreshPage(){
