@@ -3,19 +3,11 @@
 *Under construction*
 
 *Changelog*
-* added openWeatherAPI
+* Weather API: ~~openWeatherAPI~~ -> **DarkSkyAPI**
 * requests with AXIOS
 * chartJs for display graph with last forecast
 * added humidity/pressure/temp to check
-* added debounce to submit auto user input
+* added debounce to submit auto user input (Only on manual forecast search)
 * Geolocation api: ipapi to detect city from current location
-  
 
-
-## ToDo
-* images pending on rain/sun etc..
-* re-design landing page
-
-##### Improvements on near future.
-
-
+## Please feel free to contact me or send any suggestion
