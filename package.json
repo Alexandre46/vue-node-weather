@@ -30,7 +30,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "browserify": "^16.2.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "lodash": "^4.17.13",
     "request": "^2.88.0",
     "serve": "^10.1.2",
